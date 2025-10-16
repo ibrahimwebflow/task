@@ -35,21 +35,17 @@ async function loadHires() {
     });
   }
 
-  // ✅ ONLY FETCH SINGLE PAYMENT JOBS
+  // ✅ FIXED QUERY - Get all hires first, then filter for single payment
   const { data: hires, error } = await supabase
     .from("hires")
     .select(`
       id,
       created_at,
-      jobs!inner(
-        title, 
-        description, 
-        payment_type  // ✅ Get payment_type to filter
-      ),
+      job_id,
+      jobs(title, description, payment_type),
       users!hires_client_id_fkey(full_name)
     `)
-    .eq("freelancer_id", user.id)
-    .eq("jobs.payment_type", "single"); // ✅ ONLY single payment jobs
+    .eq("freelancer_id", user.id);
 
   if (error) {
     console.error(error);
@@ -58,6 +54,22 @@ async function loadHires() {
   }
 
   if (!hires || hires.length === 0) {
+    container.innerHTML = `
+      <div class="empty-hires">
+        <h3>No Active Hires</h3>
+        <p>You don't have any active hires at the moment.</p>
+        <p>Complete your profile and apply to jobs to get hired!</p>
+      </div>
+    `;
+    return;
+  }
+
+  // ✅ FILTER FOR SINGLE PAYMENT JOBS ONLY
+  const singlePaymentHires = hires.filter(hire => 
+    hire.jobs && hire.jobs.payment_type === 'single'
+  );
+
+  if (singlePaymentHires.length === 0) {
     container.innerHTML = `
       <div class="empty-hires">
         <h3>No Active Single Payment Jobs</h3>
@@ -69,7 +81,7 @@ async function loadHires() {
   }
 
   // Filter out hires that have approved final submissions
-  const filteredHires = hires.filter(hire => !approvedHireIds.has(hire.id));
+  const filteredHires = singlePaymentHires.filter(hire => !approvedHireIds.has(hire.id));
 
   if (filteredHires.length === 0) {
     container.innerHTML = `
