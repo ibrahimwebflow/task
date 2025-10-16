@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Payment Methods</title>
+  <link rel="stylesheet" href="../assets/css/admin.css" />
+  <style>
+    /* Payment Methods page specific styles */
+    .payment-methods-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: var(--space-6);
+      width: 100%;
+    }
+    
+    .page-header {
+      text-align: center;
+      margin-bottom: var(--space-8);
+    }
+    
+    .page-header h1 {
+      color: var(--accent-admin);
+      font-size: 2rem;
+      margin-bottom: var(--space-2);
+    }
+    
+    /* Form Styles */
+    #methodForm {
+      background: var(--gradient-card);
+      border: 1px solid var(--border-primary);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      margin-bottom: var(--space-8);
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      margin-bottom: var(--space-5);
+    }
+    
+    .form-group label {
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .form-input, .form-select, .form-textarea {
+      padding: var(--space-3) var(--space-4);
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-primary);
+      border-radius: var(--radius-md);
+      font-size: 0.95rem;
+      transition: all var(--transition-fast);
+      font-family: inherit;
+      color: var(--text-primary);
+      width: 100%;
+    }
+    
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--accent-admin);
+      box-shadow: var(--shadow-glow);
+      background: var(--bg-secondary);
+    }
+    
+    .form-textarea {
+      min-height: 100px;
+      resize: vertical;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+    }
+    
+    .form-textarea::placeholder {
+      color: var(--text-muted);
+      font-family: inherit;
+    }
+    
+    .form-submit {
+      background: var(--gradient-admin);
+      color: white;
+      border: none;
+      padding: var(--space-4) var(--space-8);
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      width: 100%;
+      margin-top: var(--space-4);
+    }
+    
+    .form-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-admin-glow);
+    }
+    
+    /* Methods List */
+    #methodsList {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+      gap: var(--space-6);
+      width: 100%;
+    }
+    
+    .method-card {
+      background: var(--gradient-card);
+      border: 1px solid var(--border-primary);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      transition: all var(--transition-fast);
+      height: fit-content;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .method-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--accent-admin);
+    }
+    
+    .method-card h3 {
+      color: var(--text-primary);
+      font-size: 1.2rem;
+      margin-bottom: var(--space-3);
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    
+    .method-type {
+      background: var(--accent-admin);
+      color: white;
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-full);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .method-card pre {
+      background: var(--bg-tertiary);
+      padding: var(--space-4);
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      margin: var(--space-3) 0;
+      border: 1px solid var(--border-primary);
+    }
+    
+    .method-card p {
+      color: var(--text-secondary);
+      margin: var(--space-2) 0;
+      line-height: 1.5;
+    }
+    
+    .method-card img {
+      max-width: 200px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-primary);
+      margin: var(--space-3) 0;
+    }
+    
+    .status-badge {
+      display: inline-block;
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-full);
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin: var(--space-3) 0;
+    }
+    
+    .status-active {
+      background: var(--accent-success);
+      color: var(--text-primary);
+    }
+    
+    .status-inactive {
+      background: var(--accent-danger);
+      color: var(--text-primary);
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: var(--space-3);
+      margin-top: var(--space-4);
+    }
+    
+    .toggle-btn, .delete-btn {
+      flex: 1;
+      padding: var(--space-3) var(--space-4);
+      border: none;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      font-size: 0.9rem;
+    }
+    
+    .toggle-btn {
+      background: var(--gradient-secondary);
+      color: white;
+    }
+    
+    .toggle-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+    }
+    
+    .delete-btn {
+      background: var(--gradient-danger);
+      color: white;
+    }
+    
+    .delete-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4);
+    }
+    
+    /* Form layout */
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-4);
+      margin-bottom: var(--space-4);
+    }
+    
+    @media (max-width: 768px) {
+      #methodsList {
+        grid-template-columns: 1fr;
+      }
+      
+      .method-card {
+        padding: var(--space-4);
+      }
+      
+      .action-buttons {
+        flex-direction: column;
+      }
+      
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+      
+      .method-card img {
+        max-width: 150px;
+      }
+    }
+    
+    /* JSON validation styling */
+    .json-valid {
+      border-color: var(--accent-success) !important;
+    }
+    
+    .json-invalid {
+      border-color: var(--accent-danger) !important;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar Navigation -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-head">
+      <h1 class="logo">Inbit Admin</h1>
+    </div>
+    <!-- Add this right after .sidebar-head -->
+<div class="theme-toggle-container">
+    <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle theme">
+        <span class="theme-icon">🌙</span>
+        <span class="theme-label">Dark Mode</span>
+    </button>
+</div>
+
+        <ul class="nav-links">
+            <li><a href="dashboard.html" class="nav-link"><span class="icon">⌘</span><span class="label">Dashboard</span></a></li>
+            <li><a href="admin-skills.html" class="nav-link"><span class="icon">🛠️</span><span class="label">Skill Verifications</span></a></li>
+            <li><a href="final-submissions.html" class="nav-link"><span class="icon">🚀</span><span class="label">Final Submissions</span></a></li>
+            <li><a href="fees.html" class="nav-link"><span class="icon">💰</span><span class="label">Fees</span></a></li>
+            <li><a href="payment-methods.html" class="nav-link active"><span class="icon">💳</span><span class="label">Payment Methods</span></a></li>
+            <li><a href="contracts.html" class="nav-link"><span class="icon">📝</span><span class="label">Contracts</span></a></li>
+            <li class="nav-footer"><a href="login.html" class="nav-link logout"><span class="icon">🚪</span><span class="label">Logout</span></a></li>
+        </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="main-wrapper" id="mainWrapper">
+    <header class="top-header">
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="header-content">
+        <h1>Payment Methods</h1>
+        <div class="user-info">
+          <span>Manage Platform Payments</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="payment-methods-container">
+      <div class="page-header">
+        <h1>Admin Payment Methods</h1>
+        <p>Manage payment methods available on the platform</p>
+      </div>
+
+      <div class="admin-section">
+        <div class="section-header">
+          <h2>Add New Payment Method</h2>
+        </div>
+        
+        <form id="methodForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="type">Type</label>
+              <select id="type" class="form-select">
+                <option value="bank">Bank Transfer</option>
+                <option value="crypto">Cryptocurrency</option>
+                <option value="link">Payment Link</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="label">Label</label>
+              <input type="text" id="label" class="form-input" placeholder="e.g., Chase Bank, Bitcoin, PayPal" required />
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="details">Details (JSON)</label>
+            <textarea id="details" class="form-textarea" placeholder='{"bank_name": "Chase", "account_number": "123456789", "routing_number": "021000021"}' required></textarea>
+            <small style="color: var(--text-muted);">Enter payment details in valid JSON format</small>
+          </div>
+          
+          <div class="form-group">
+            <label for="instructions">Instructions</label>
+            <input type="text" id="instructions" class="form-input" placeholder="Payment instructions for users" />
+          </div>
+          
+          <div class="form-group">
+            <label for="proof_img">QR Code / Image URL (Optional)</label>
+            <input type="url" id="proof_img" class="form-input" placeholder="https://example.com/qr-code.png" />
+          </div>
+          
+          <button type="submit" class="form-submit">Save Payment Method</button>
+        </form>
+      </div>
+
+      <div class="admin-section">
+        <div class="section-header">
+          <h2>Existing Payment Methods</h2>
+        </div>
+        
+        <div id="methodsList">
+          <div class="loading">Loading payment methods...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/js/admin-ui.js" type="module"></script>
+  <script type="module" src="../assets/js/admin/payment-methods.js"></script>
+  
+  <script>
+    // Mobile menu functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const sidebar = document.getElementById('sidebar');
+      const mainWrapper = document.getElementById('mainWrapper');
+
+      if (mobileMenuBtn && sidebar) {
+        mobileMenuBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          sidebar.classList.toggle('mobile-open');
+          mainWrapper.classList.toggle('menu-open');
+          mobileMenuBtn.classList.toggle('active');
+        });
+
+        mainWrapper.addEventListener('click', function(e) {
+          if (e.target === mainWrapper && mainWrapper.classList.contains('menu-open')) {
+            sidebar.classList.remove('mobile-open');
+            mainWrapper.classList.remove('menu-open');
+            mobileMenuBtn.classList.remove('active');
+          }
+        });
+
+        document.querySelectorAll('.nav-link').forEach((link) => {
+          link.addEventListener('click', () => {
+            sidebar.classList.remove('mobile-open');
+            mainWrapper.classList.remove('menu-open');
+            mobileMenuBtn.classList.remove('active');
+          });
+        });
+      }
+
+      // JSON validation for details field
+      const detailsTextarea = document.getElementById('details');
+      if (detailsTextarea) {
+        detailsTextarea.addEventListener('input', function() {
+          try {
+            JSON.parse(this.value);
+            this.classList.remove('json-invalid');
+            this.classList.add('json-valid');
+          } catch {
+            this.classList.remove('json-valid');
+            this.classList.add('json-invalid');
+          }
+        });
+      }
+    });
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+    // Mobile menu functionality
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const sidebar = document.getElementById('sidebar');
+    const mainWrapper = document.getElementById('mainWrapper');
+
+    if (mobileMenuBtn && sidebar) {
+        mobileMenuBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            sidebar.classList.toggle('mobile-open');
+            mainWrapper.classList.toggle('menu-open');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // Close menu when clicking on overlay
+        mainWrapper.addEventListener('click', function(e) {
+            if (e.target === mainWrapper && mainWrapper.classList.contains('menu-open')) {
+                sidebar.classList.remove('mobile-open');
+                mainWrapper.classList.remove('menu-open');
+                mobileMenuBtn.classList.remove('active');
+            }
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach((link) => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('mobile-open');
+                mainWrapper.classList.remove('menu-open');
+                mobileMenuBtn.classList.remove('active');
+            });
+        });
+    }
+
+    // Tab navigation functionality
+    const tabButtons = document.querySelectorAll('.admin-nav button');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove active class from all buttons
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            // Add active class to clicked button
+            button.classList.add('active');
+            
+            // Hide all tab contents
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // Show corresponding tab content
+            const tabId = button.getAttribute('data-tab');
+            const tabContent = document.getElementById(tabId);
+            if (tabContent) {
+                tabContent.classList.add('active');
+            }
+        });
+    });
+});
+  </script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Milestone Reviews - Inbit</title>
+  <link rel="stylesheet" href="../assets/css/client.css">
+</head>
+<body>
+    <!-- ┌------------- SIDEBAR NAV -------------┐ -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-head">
+            <h1 class="logo">Inbit</h1>
+        </div>
+
+        <div class="theme-toggle-container">
+          <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle theme">
+            <span class="theme-icon">🌙</span>
+            <span class="theme-label">Dark Mode</span>
+          </button>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="dashboard.html" class="nav-link"><span class="icon">📊</span><span class="label">Dashboard</span></a></li>
+            <li><a href="post-job.html" class="nav-link"><span class="icon">➕</span><span class="label">Post Job</span></a></li>
+            <li><a href="matches.html" class="nav-link"><span class="icon">🔍</span><span class="label">Matches</span></a></li>
+            <li><a href="hires.html" class="nav-link"><span class="icon">👥</span><span class="label">My Hires</span></a></li>
+            <li><a href="milestone-reviews.html" class="nav-link active"><span class="icon">🎯</span><span class="label">Milestone Reviews</span></a></li>
+            <li><a href="preview-submissions.html" class="nav-link"><span class="icon">👁️</span><span class="label">Previews</span></a></li>
+            <li><a href="notifications.html" class="nav-link"><span class="icon">🔔</span><span class="label">Notifications</span></a></li>
+            <li><a href="settings.html" class="nav-link"><span class="icon">⚙️</span><span class="label">Settings</span></a></li>
+            <li class="nav-footer"><a href="login.html" class="nav-link logout"><span class="icon">🚪</span><span class="label">Logout</span></a></li>
+        </ul>
+    </nav>
+
+    <!-- ┌------------- MAIN CONTENT WRAPPER -------------┐ -->
+    <div class="main-wrapper" id="mainWrapper">
+        <header class="top-header">
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="header-content">
+                <h1>Milestone Reviews</h1>
+                <div class="user-info">
+                    <span>Review freelancer submissions</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="dashboard-container">
+            <section class="dashboard-section">
+                <div class="section-header">
+                    <h2>Pending Milestone Submissions</h2>
+                    <div class="reviews-info">
+                        <span class="info-item">
+                            <span class="info-label">Awaiting Review</span>
+                            <span class="info-value" id="pendingCount">0</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div id="milestoneReviewsList">
+                    <div class="loading">Loading milestone submissions...</div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Review Modal -->
+    <div id="reviewModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Review Milestone Submission</h3>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="reviewContent">
+                    <!-- Dynamic content will be loaded here -->
+                </div>
+                
+                <div class="review-actions" id="reviewActions">
+                    <button type="button" class="btn btn-success" id="approveBtn">
+                        ✅ Approve & Release Payment
+                    </button>
+                    <button type="button" class="btn btn-danger" id="rejectBtn">
+                        ❌ Request Revisions
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="cancelReview">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+            const sidebar = document.getElementById("sidebar");
+            const mainWrapper = document.getElementById("mainWrapper");
+            
+            if (mobileMenuBtn && sidebar) {
+                mobileMenuBtn.addEventListener("click", function(e) {
+                    e.stopPropagation();
+                    sidebar.classList.toggle("mobile-open");
+                    mainWrapper.classList.toggle("menu-open");
+                    mobileMenuBtn.classList.toggle("active");
+                });
+
+                mainWrapper.addEventListener('click', function(e) {
+                    if (e.target === mainWrapper && mainWrapper.classList.contains('menu-open')) {
+                        sidebar.classList.remove("mobile-open");
+                        mainWrapper.classList.remove("menu-open");
+                        mobileMenuBtn.classList.remove("active");
+                    }
+                });
+
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', () => {
+                        sidebar.classList.remove("mobile-open");
+                        mainWrapper.classList.remove("menu-open");
+                        mobileMenuBtn.classList.remove("active");
+                    });
+                });
+            }
+
+            // Modal functionality
+            const modal = document.getElementById('reviewModal');
+            const closeModal = document.getElementById('closeModal');
+            const cancelBtn = document.getElementById('cancelReview');
+
+            closeModal.addEventListener('click', () => modal.style.display = 'none');
+            cancelBtn.addEventListener('click', () => modal.style.display = 'none');
+
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+    
+    <script type="module" src="../assets/js/client-milestone-reviews.js"></script>
+</body>
+</html>

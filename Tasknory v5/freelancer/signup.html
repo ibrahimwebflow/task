@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelancer Signup - Inbit</title>
+    <link rel="stylesheet" href="../assets/css/freelancer/auth.css" />
+  </head>
+  <body>
+    <div class="signup-container">
+      <div class="auth-card">
+        <div class="auth-header">
+          <h1>Join Inbit as a Freelancer</h1>
+          <p>Start your journey with the world's best freelancing platform</p>
+        </div>
+        
+        <form id="freelancerSignupForm" class="auth-form">
+          <!-- Basic Info -->
+          <div class="form-group">
+            <label for="full_name">Full Name</label>
+            <input type="text" id="full_name" name="full_name" class="form-input" placeholder="Enter your full name" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" class="form-input" placeholder="your.email@example.com" required />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" class="form-input" placeholder="Create a strong password" required />
+          </div>
+
+          <div class="form-group">
+            <label for="language">Preferred Language</label>
+            <select id="language" name="language" class="form-select" required>
+              <option value="">Select your language</option>
+              <option value="English">English</option>
+              <option value="Arabic">Arabic</option>
+              <option value="French">French</option>
+            </select>
+          </div>
+
+          <!-- Tone -->
+          <div class="form-group">
+            <label for="tone">Communication Style</label>
+            <select id="tone" name="tone" class="form-select" required>
+              <option value="">Select your preferred tone</option>
+              <option value="professional">Professional</option>
+              <option value="friendly">Friendly</option>
+              <option value="direct">Direct</option>
+              <option value="collaborative">Collaborative</option>
+            </select>
+          </div>
+
+          <!-- Skills -->
+          <div class="form-group">
+            <label for="skillsSelect">Your Skills (Select multiple)</label>
+            <select id="skillsSelect" name="skills" class="form-select" multiple required>
+              <!-- Skills will be populated by JavaScript -->
+            </select>
+          </div>
+
+          <!-- Portfolio -->
+          <div class="form-group">
+            <label for="portfolio_file">Portfolio Sample (Optional)</label>
+            <input type="file" id="portfolio_file" name="portfolio_file" class="form-file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" />
+          </div>
+
+          <!-- REMOVED: ID Verification Section -->
+
+          <button type="submit" class="submit-btn">
+            <span>Create Freelancer Account</span>
+          </button>
+        </form>
+
+        <div class="auth-footer">
+          <p>Already have an account? <a href="login.html" class="auth-link">Sign in here</a></p>
+        </div>
+      </div>
+    </div>
+
+    <script src="../assets/js/auth.js" type="module"></script>
+  </body>
+</html>

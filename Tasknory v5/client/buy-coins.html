@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buy TN Coins - Tasknory</title>
+  <!-- <link rel="stylesheet" href="../assets/css/client.css" /> -->
+  <style>
+    /* Buy Coins Container */
+.buy-coins-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: var(--card-bg, #ffffff);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--border-color, #e5e7eb);
+}
+
+.buy-coins-container h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--text-color, #1f2937);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Form Groups */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-color, #374151);
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.form-input, .form-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color, #d1d5db);
+  border-radius: 8px;
+  font-size: 1rem;
+  background: var(--bg-color, #ffffff);
+  color: var(--text-color, #1f2937);
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.form-input:focus, .form-select:focus {
+  outline: none;
+  border-color: var(--primary-color, #3b82f6);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-input:disabled {
+  background-color: var(--bg-secondary, #f9fafb);
+  color: var(--text-muted, #6b7280);
+  cursor: not-allowed;
+}
+
+/* Buttons */
+.btn {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  background: var(--primary-color, #3b82f6);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.btn:hover {
+  background: var(--primary-dark, #2563eb);
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn:disabled {
+  background: var(--text-muted, #9ca3af);
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Admin Payment Box */
+.admin-payment-box {
+  background: var(--bg-secondary, #f8fafc);
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.admin-payment-box p {
+  margin: 0.5rem 0;
+  color: var(--text-color, #374151);
+  line-height: 1.5;
+}
+
+.admin-payment-box strong {
+  color: var(--text-color, #1f2937);
+}
+
+/* File Upload */
+input[type="file"] {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px dashed var(--border-color, #d1d5db);
+  border-radius: 8px;
+  background: var(--bg-color, #ffffff);
+  color: var(--text-color, #374151);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+input[type="file"]:hover {
+  border-color: var(--primary-color, #3b82f6);
+  background: var(--bg-secondary, #f8fafc);
+}
+
+input[type="file"]::file-selector-button {
+  padding: 0.5rem 1rem;
+  background: var(--primary-color, #3b82f6);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  margin-right: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background: var(--primary-dark, #2563eb);
+}
+
+/* Success Message */
+.success-message {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  font-weight: 500;
+  margin-top: 1rem;
+}
+
+.success-message::before {
+  content: "✅";
+  margin-right: 0.5rem;
+}
+
+/* Hidden Utility */
+.hidden {
+  display: none !important;
+}
+
+/* Step Transitions */
+#step1, #step2, #successMsg {
+  transition: all 0.3s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .buy-coins-container {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .buy-coins-container h2 {
+    font-size: 1.25rem;
+  }
+  
+  .form-input, .form-select {
+    padding: 0.625rem 0.875rem;
+    font-size: 0.95rem;
+  }
+  
+  .btn {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.95rem;
+  }
+  
+  .admin-payment-box {
+    padding: 1rem;
+  }
+}
+
+/* Dark Mode Support */
+[data-theme="dark"] .buy-coins-container {
+  background: var(--card-bg, #1f2937);
+  border-color: var(--border-color, #374151);
+}
+
+[data-theme="dark"] .admin-payment-box {
+  background: var(--bg-secondary, #111827);
+  border-color: var(--border-color, #374151);
+}
+
+[data-theme="dark"] .form-input,
+[data-theme="dark"] .form-select {
+  background: var(--bg-color, #1f2937);
+  border-color: var(--border-color, #4b5563);
+  color: var(--text-color, #f9fafb);
+}
+
+[data-theme="dark"] input[type="file"] {
+  background: var(--bg-color, #1f2937);
+  border-color: var(--border-color, #4b5563);
+  color: var(--text-color, #f9fafb);
+}
+
+[data-theme="dark"] .success-message {
+  background: #064e3b;
+  color: #a7f3d0;
+  border-color: #047857;
+}
+
+/* Loading State */
+.btn.loading {
+  position: relative;
+  color: transparent;
+}
+
+.btn.loading::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 50%;
+  left: 50%;
+  margin-left: -8px;
+  margin-top: -8px;
+  border: 2px solid transparent;
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Form Help Text */
+.form-help {
+  font-size: 0.875rem;
+  color: var(--text-muted, #6b7280);
+  margin-top: 0.25rem;
+  display: block;
+}
+
+/* Currency Display */
+.currency-display {
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  color: var(--primary-color, #3b82f6);
+}
+  </style>
+</head>
+
+<body>
+  <div class="buy-coins-container">
+    <h2>Buy TN Coins (1 TN = $1)</h2>
+
+    <!-- Step 1 -->
+    <div id="step1">
+      <div class="form-group">
+        <label for="coinAmount">Amount (in TN)</label>
+        <input type="number" id="coinAmount" placeholder="Enter amount (TN)" />
+      </div>
+
+      <div class="form-group">
+        <label for="paymentMethod">Select Payment Method</label>
+        <select id="paymentMethod">
+          <option value="">Select...</option>
+          <option value="bank">Bank Transfer</option>
+          <option value="wallet">Crypto Wallet (USDT)</option>
+        </select>
+      </div>
+
+      <button id="continueBtn" class="btn">Continue</button>
+    </div>
+
+    <!-- Step 2 -->
+    <div id="step2" class="hidden">
+      <div class="admin-payment-box" id="adminDetails"></div>
+
+      <div class="form-group">
+        <label for="proofUpload">Upload Proof of Payment</label>
+        <input type="file" id="proofUpload" accept="image/*,application/pdf" />
+      </div>
+
+      <button id="confirmPaymentBtn" class="btn">I have made payment</button>
+    </div>
+
+    <!-- Step 3 -->
+    <div id="successMsg" class="success-message hidden">
+      ✅ Payment proof submitted successfully! Please wait for admin confirmation.
+    </div>
+  </div>
+
+  <script type="module">
+    import { supabase } from "../../supabase/config.js";
+
+    const amountInput = document.getElementById("coinAmount");
+    const paymentMethodSelect = document.getElementById("paymentMethod");
+    const continueBtn = document.getElementById("continueBtn");
+    const step1 = document.getElementById("step1");
+    const step2 = document.getElementById("step2");
+    const adminDetailsBox = document.getElementById("adminDetails");
+    const proofUpload = document.getElementById("proofUpload");
+    const confirmBtn = document.getElementById("confirmPaymentBtn");
+    const successMsg = document.getElementById("successMsg");
+
+    // ✅ Pre-fill amount if redirected from hire
+    const params = new URLSearchParams(window.location.search);
+    const presetAmount = params.get("amount");
+    if (presetAmount) {
+      amountInput.value = presetAmount;
+      amountInput.disabled = true;
+    }
+
+    continueBtn.addEventListener("click", () => {
+      const amount = amountInput.value.trim();
+      const method = paymentMethodSelect.value;
+
+      if (!amount || isNaN(amount) || amount <= 0) {
+        alert("Please enter a valid amount.");
+        return;
+      }
+
+      if (!method) {
+        alert("Please select a payment method.");
+        return;
+      }
+
+      step1.classList.add("hidden");
+      step2.classList.remove("hidden");
+
+      if (method === "bank") {
+        adminDetailsBox.innerHTML = `
+          <p><strong>Bank Name:</strong> Zenith Bank</p>
+          <p><strong>Account Name:</strong> Tasknory Global</p>
+          <p><strong>Account Number:</strong> 1234567890</p>
+          <p><strong>Amount to Pay:</strong> ${amount} TN ($${amount})</p>
+        `;
+      } else if (method === "wallet") {
+        adminDetailsBox.innerHTML = `
+          <p><strong>Network:</strong> TRC20</p>
+          <p><strong>Wallet Address:</strong> TN12abcx987tasknory999</p>
+          <p><strong>Amount to Pay:</strong> ${amount} TN (≈ $${amount})</p>
+        `;
+      }
+    });
+
+    confirmBtn.addEventListener("click", async () => {
+      const file = proofUpload.files[0];
+      if (!file) {
+        alert("Please upload a proof of payment.");
+        return;
+      }
+
+      const { data: { user }, error: userErr } = await supabase.auth.getUser();
+      if (userErr || !user) {
+        alert("You must be logged in.");
+        return;
+      }
+
+      const filePath = `proofs/${user.id}/${Date.now()}_${file.name}`;
+      const { data: uploadData, error: uploadErr } = await supabase.storage
+        .from("proofs")
+        .upload(filePath, file);
+
+      if (uploadErr) {
+        alert("Failed to upload proof.");
+        console.error(uploadErr);
+        return;
+      }
+
+      const { data: urlData } = supabase.storage.from("proofs").getPublicUrl(filePath);
+      const proofUrl = urlData.publicUrl;
+
+      const { error: insertErr } = await supabase.from("coin_purchases").insert({
+        user_id: user.id,
+        amount: amountInput.value,
+        payment_method: paymentMethodSelect.value,
+        proof_url: proofUrl,
+        status: "pending"
+      });
+
+      if (insertErr) {
+        alert("Error submitting payment proof.");
+        console.error(insertErr);
+        return;
+      }
+
+      step2.classList.add("hidden");
+      successMsg.classList.remove("hidden");
+    });
+  </script>
+</body>
+</html>

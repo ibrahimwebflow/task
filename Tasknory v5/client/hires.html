@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Client Hires - Inbit</title>
+    <link rel="stylesheet" href="../assets/css/client.css" />
+  </head>
+  <body>
+    <!-- ┌------------- SIDEBAR NAV -------------┐ -->
+    <nav class="sidebar" id="sidebar">
+      <div class="sidebar-head">
+        <h1 class="logo">Inbit</h1>
+      </div>
+
+      <!-- Add this right after .sidebar-head -->
+<div class="theme-toggle-container">
+    <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle theme">
+        <span class="theme-icon">🌙</span>
+        <span class="theme-label">Dark Mode</span>
+    </button>
+</div>
+
+        <ul class="nav-links">
+            <li><a href="dashboard.html" class="nav-link"><span class="icon">📊</span><span class="label">Dashboard</span></a></li>
+            <li><a href="post-job.html" class="nav-link"><span class="icon">➕</span><span class="label">Post Job</span></a></li>
+            <li><a href="matches.html" class="nav-link"><span class="icon">🔍</span><span class="label">Matches</span></a></li>
+            <li><a href="hires.html" class="nav-link active"><span class="icon">👥</span><span class="label">My Hires</span></a></li>
+            <li><a href="contracts.html" class="nav-link"><span class="icon">📝</span><span class="label">Contracts</span></a></li>
+            <li><a href="preview-submissions.html" class="nav-link"><span class="icon">👁️</span><span class="label">Previews</span></a></li>
+            <li><a href="notifications.html" class="nav-link"><span class="icon">🔔</span><span class="label">Notifications</span></a></li>
+            <li><a href="settings.html" class="nav-link"><span class="icon">⚙️</span><span class="label">Settings</span></a></li>
+            <li class="nav-footer"><a href="login.html" class="nav-link logout"><span class="icon">🚪</span><span class="label">Logout</span></a></li>
+        </ul>
+    </nav>
+
+    <!-- ┌------------- MAIN CONTENT WRAPPER -------------┐ -->
+    <div class="main-wrapper" id="mainWrapper">
+      <header class="top-header">
+        <button
+          class="mobile-menu-btn"
+          id="mobileMenuBtn"
+          aria-label="Toggle menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="header-content">
+          <h1>My Hires</h1>
+        </div>
+      </header>
+
+      <div class="dashboard-container">
+        <!-- Hires Section -->
+        <section class="dashboard-section">
+          <div class="section-header">
+            <h2>My Projects</h2>
+          </div>
+          <div id="hiresList">
+            <div class="loading">Loading your hires...</div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script>
+      // Mobile menu functionality
+      document.addEventListener("DOMContentLoaded", function () {
+        const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+        const sidebar = document.getElementById("sidebar");
+        const mainWrapper = document.getElementById("mainWrapper");
+
+        if (mobileMenuBtn && sidebar) {
+          mobileMenuBtn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            sidebar.classList.toggle("mobile-open");
+            mainWrapper.classList.toggle("menu-open");
+            mobileMenuBtn.classList.toggle("active");
+          });
+
+          mainWrapper.addEventListener("click", function (e) {
+            if (
+              e.target === mainWrapper &&
+              mainWrapper.classList.contains("menu-open")
+            ) {
+              sidebar.classList.remove("mobile-open");
+              mainWrapper.classList.remove("menu-open");
+              mobileMenuBtn.classList.remove("active");
+            }
+          });
+
+          document.querySelectorAll(".nav-link").forEach((link) => {
+            link.addEventListener("click", () => {
+              sidebar.classList.remove("mobile-open");
+              mainWrapper.classList.remove("menu-open");
+              mobileMenuBtn.classList.remove("active");
+            });
+          });
+        }
+      });
+    </script>
+
+    <script src="../assets/js/client.js" type="module"></script>
+  </body>
+</html>

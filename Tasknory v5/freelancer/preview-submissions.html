@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preview Submissions - Inbit</title>
+  <link rel="stylesheet" href="../assets/css/freelancer.css">
+  <link rel="stylesheet" href="../assets/css/freelancer/preview-submissions.css">
+  <style>
+    /* OVERRIDE - Fix grid layout */
+    #hiresList {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
+
+    @media (min-width: 968px) {
+        #hiresList {
+            grid-template-columns: 1fr 1fr !important;
+        }
+    }
+
+    .hire-card {
+        min-height: 300px;
+        box-sizing: border-box;
+    }
+
+    /* Ensure proper loading state */
+    .loading {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 60px 20px;
+    }
+  </style>
+</head>
+<body>
+    <!-- ┌------------- SIDEBAR NAV -------------┐ -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-head">
+            <h1 class="logo">Inbit</h1>
+        </div>
+
+              <div class="theme-toggle-container">
+        <button
+          id="themeToggle"
+          class="theme-toggle-btn"
+          aria-label="Toggle theme"
+        >
+          <span class="theme-icon">🌙</span>
+          <span class="theme-label">Dark Mode</span>
+        </button>
+      </div>
+
+        <ul class="nav-links">
+            <li><a href="dashboard.html" class="nav-link"><span class="icon">📊</span><span class="label">Dashboard</span></a></li>
+            <li><a href="skills.html" class="nav-link"><span class="icon">🛠️</span><span class="label">Skills</span></a></li>
+            <li><a href="matches.html" class="nav-link"><span class="icon">🔍</span><span class="label">Matched Jobs</span></a></li>
+            <li><a href="hires.html" class="nav-link"><span class="icon">👥</span><span class="label">Projects</span></a></li>
+            <li><a href="contract.html" class="nav-link"><span class="icon">📝</span><span class="label">Contracts</span></a></li>
+            <li><a href="fees.html" class="nav-link"><span class="icon">💰</span><span class="label">Fees</span></a></li>
+            <li><a href="final-submissions.html" class="nav-link"><span class="icon">🚀</span><span class="label">Final Submissions</span></a></li>
+            <li><a href="contract-payment.html" class="nav-link"><span class="icon">💳</span><span class="label">Payment Details</span></a></li>
+            <li><a href="preview-submissions.html" class="nav-link active"><span class="icon">👁️</span><span class="label">Previews</span></a></li>
+            <li><a href="settings.html" class="nav-link"><span class="icon">⚙️</span><span class="label">Settings</span></a></li>
+            <li class="nav-footer"><a href="login.html" class="nav-link logout"><span class="icon">🚪</span><span class="label">Logout</span></a></li>
+        </ul>
+    </nav>
+
+    <!-- ┌------------- MAIN CONTENT WRAPPER -------------┐ -->
+    <div class="main-wrapper" id="mainWrapper">
+        <header class="top-header">
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="header-content">
+                <h1>Job Progress Submissions</h1>
+            </div>
+        </header>
+
+        <div class="dashboard-container">
+            <section class="dashboard-section">
+                <div class="section-header">
+                    <h2>Active Projects for Preview Submission</h2>
+                    <div class="previews-info">
+                        <span class="info-item">
+                            <span class="info-label">Active Projects</span>
+                            <span class="info-value" id="activeCount">0</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- FIXED: Remove the nested hires-grid and put cards directly here -->
+                <div id="hiresList">
+                    <div class="loading">Loading your active projects...</div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+            const sidebar = document.getElementById("sidebar");
+            const mainWrapper = document.getElementById("mainWrapper");
+            
+            if (mobileMenuBtn && sidebar) {
+                mobileMenuBtn.addEventListener("click", function(e) {
+                    e.stopPropagation();
+                    sidebar.classList.toggle("mobile-open");
+                    mainWrapper.classList.toggle("menu-open");
+                    mobileMenuBtn.classList.toggle("active");
+                });
+
+                mainWrapper.addEventListener('click', function(e) {
+                    if (e.target === mainWrapper && mainWrapper.classList.contains('menu-open')) {
+                        sidebar.classList.remove("mobile-open");
+                        mainWrapper.classList.remove("menu-open");
+                        mobileMenuBtn.classList.remove("active");
+                    }
+                });
+
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', () => {
+                        sidebar.classList.remove("mobile-open");
+                        mainWrapper.classList.remove("menu-open");
+                        mobileMenuBtn.classList.remove("active");
+                    });
+                });
+            }
+        });
+    </script>
+    
+    <script type="module">
+        import { supabase } from "../supabase/config.js";
+
+        document.addEventListener("DOMContentLoaded", loadHires);
+
+        async function loadHires() {
+          const { data: { user } } = await supabase.auth.getUser();
+          const container = document.getElementById("hiresList");
+          
+          if (!user) {
+            container.innerHTML = "<p class='error'>You must log in first.</p>";
+            return;
+          }
+
+          // Show loading state
+          container.innerHTML = "<div class='loading'>Loading your active projects...</div>";
+
+          // Fetch hires where this user is the freelancer
+          const { data: hires, error } = await supabase
+            .from("hires")
+            .select(`
+              id,
+              created_at,
+              jobs(title, description),
+              users!hires_client_id_fkey(full_name),
+              contracts(status)
+            `)
+            .eq("freelancer_id", user.id);
+
+          if (error) {
+            container.innerHTML = "<p class='error'>Error loading projects. Please try again.</p>";
+            console.error(error);
+            return;
+          }
+
+          // Filter active hires (not all contracts completed)
+          const activeHires = (hires || []).filter(hire => {
+            // No contracts yet → keep it
+            if (!hire.contracts || hire.contracts.length === 0) return true;
+
+            // Check if all contracts are completed
+            const allCompleted = hire.contracts.every(c => c.status === "completed");
+            return !allCompleted;
+          });
+
+          if (!activeHires || activeHires.length === 0) {
+            container.innerHTML = `
+              <div class="empty-hires">
+                <h3>All Projects Completed! 🎉</h3>
+                <p>You have no active projects requiring preview submissions.</p>
+                <p>Great work! All your projects are either completed or awaiting new milestones.</p>
+              </div>
+            `;
+            return;
+          }
+
+          // Update active count
+          document.getElementById('activeCount').textContent = activeHires.length;
+
+          // FIXED: Remove the nested grid container - append cards directly to container
+          container.innerHTML = '';
+
+          activeHires.forEach((hire, index) => {
+            const hireCard = document.createElement("div");
+            hireCard.className = "hire-card";
+            hireCard.style.animationDelay = `${index * 0.1}s`;
+            
+            hireCard.innerHTML = `
+              <div class="hire-header">
+                <h3 class="hire-title">${hire.jobs.title}</h3>
+                <span class="hire-status">Active</span>
+              </div>
+              
+              <div class="hire-client">
+                <strong>Client:</strong> ${hire.users.full_name}
+              </div>
+              
+              <div class="hire-description">
+                ${hire.jobs.description}
+              </div>
+              
+              <div class="hire-actions">
+                <button class="btn-submit-preview" data-id="${hire.id}">
+                  Submit Preview
+                </button>
+              </div>
+              
+              <div class="preview-form" id="form-${hire.id}">
+                <div class="form-instructions">
+                  <strong>📸 Important:</strong> Take a valid screenshot of your project milestone (not the full project). 
+                  This helps clients track progress and provide feedback.
+                </div>
+                
+                <div class="file-upload-wrapper">
+                  <div class="file-input-wrapper">
+                    <input type="file" id="file-${hire.id}" accept="image/*,.pdf" />
+                  </div>
+                  <button class="btn-upload-preview" data-id="${hire.id}">
+                    Upload Preview
+                  </button>
+                </div>
+                
+                <div class="supported-formats">
+                  Supported formats: JPG, PNG, PDF (Max: 10MB)
+                </div>
+              </div>
+              
+              <div class="hire-meta">
+                <span class="hire-date">Started: ${new Date(hire.created_at).toLocaleDateString()}</span>
+                <span class="hire-id">#${hire.id}</span>
+              </div>
+            `;
+            
+            container.appendChild(hireCard);
+          });
+
+          // Show form toggle
+          document.querySelectorAll(".btn-submit-preview").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+              const hireId = e.target.dataset.id;
+              const form = document.getElementById(`form-${hireId}`);
+              form.classList.toggle("active");
+              
+              // Update button text
+              if (form.classList.contains("active")) {
+                e.target.innerHTML = "👁️ Hide Preview Form";
+              } else {
+                e.target.innerHTML = "👁️ Submit Preview";
+              }
+            });
+          });
+
+          // Handle uploads
+          document.querySelectorAll(".btn-upload-preview").forEach(btn => {
+            btn.addEventListener("click", async (e) => {
+              const hireId = e.target.dataset.id;
+              const fileInput = document.getElementById(`file-${hireId}`);
+              const file = fileInput.files[0];
+              
+              if (!file) {
+                alert("Please select a file before uploading.");
+                return;
+              }
+              
+              // Check file size (10MB limit)
+              if (file.size > 10 * 1024 * 1024) {
+                alert("File size must be less than 10MB.");
+                return;
+              }
+              
+              // Check file type
+              const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'];
+              if (!allowedTypes.includes(file.type)) {
+                alert("Please upload only JPG, PNG, or PDF files.");
+                return;
+              }
+              
+              await submitPreview(hireId, file);
+            });
+          });
+        }
+
+        async function submitPreview(hireId, file) {
+          const { data: { user } } = await supabase.auth.getUser();
+          if (!user) {
+            alert("Please login to submit preview.");
+            return;
+          }
+
+          // Show loading state on button
+          const button = document.querySelector(`.btn-upload-preview[data-id="${hireId}"]`);
+          const originalText = button.innerHTML;
+          button.innerHTML = '📤 Uploading...';
+          button.disabled = true;
+
+          // Upload file to storage
+          const path = `previews/${hireId}/${Date.now()}-${file.name}`;
+          const { error: upErr } = await supabase.storage.from("submissions").upload(path, file);
+          
+          if (upErr) {
+            alert("Upload failed: " + upErr.message);
+            button.innerHTML = originalText;
+            button.disabled = false;
+            return;
+          }
+          
+          const { data: urlData } = supabase.storage.from("submissions").getPublicUrl(path);
+          const fileUrl = urlData.publicUrl;
+
+          // Fetch client_id from hire
+          const { data: hire } = await supabase.from("hires").select("client_id").eq("id", hireId).single();
+
+          // Insert preview submission row
+          const { error } = await supabase.from("preview_submissions").insert({
+            hire_id: hireId,
+            freelancer_id: user.id,
+            client_id: hire.client_id,
+            file_url: fileUrl,
+            status: "submitted"
+          });
+
+          if (error) {
+            console.error(error);
+            alert("Failed to submit preview");
+            button.innerHTML = originalText;
+            button.disabled = false;
+            return;
+          }
+
+          // Notify client
+          await supabase.from("notifications").insert({
+            user_id: hire.client_id,
+            type: "preview",
+            message: `Freelancer submitted a preview for hire ${hireId}.`
+          });
+
+          // Show success and reload
+          button.innerHTML = '✅ Submitted!';
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
+        }
+
+        // Theme Toggle Functionality
+function initThemeToggle() {
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = themeToggle.querySelector('.theme-icon');
+  const themeLabel = themeToggle.querySelector('.theme-label');
+  
+  // Check for saved theme or prefer-color-scheme
+  const savedTheme = localStorage.getItem('theme');
+  const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+  
+  if (savedTheme === 'light' || (!savedTheme && prefersLight)) {
+    document.documentElement.setAttribute('data-theme', 'light');
+    themeIcon.textContent = '🌙';
+    themeLabel.textContent = 'Dark Mode';
+  } else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    themeIcon.textContent = '☀️';
+    themeLabel.textContent = 'Light Mode';
+  }
+  
+  themeToggle.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    
+    if (currentTheme === 'light') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeIcon.textContent = '☀️';
+      themeLabel.textContent = 'Light Mode';
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+      themeIcon.textContent = '🌙';
+      themeLabel.textContent = 'Dark Mode';
+      localStorage.setItem('theme', 'light');
+    }
+  });
+}
+
+// Initialize theme toggle when DOM loads
+document.addEventListener('DOMContentLoaded', () => {
+  initThemeToggle();
+});
+    </script>
+</body>
+</html>

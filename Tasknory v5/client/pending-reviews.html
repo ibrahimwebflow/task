@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pending Reviews - Tasknory</title>
+    <link rel="stylesheet" href="../assets/css/client.css" />
+  </head>
+  <body>
+    <nav class="sidebar" id="sidebar">
+      <div class="sidebar-head"><h1 class="logo">Tasknory</h1></div>
+
+      <ul class="nav-links">
+        <li><a href="dashboard.html" class="nav-link">📊 Dashboard</a></li>
+        <li><a href="hires.html" class="nav-link">👥 My Hires</a></li>
+        <li><a href="pending-reviews.html" class="nav-link active">🕒 Pending Reviews</a></li>
+        <li><a href="settings.html" class="nav-link">⚙️ Settings</a></li>
+        <li class="nav-footer"><a href="login.html" class="nav-link logout">🚪 Logout</a></li>
+      </ul>
+    </nav>
+
+    <div class="main-wrapper">
+      <header class="top-header">
+        <h1>Pending Reviews</h1>
+      </header>
+
+      <div class="dashboard-container">
+        <section class="dashboard-section">
+          <div class="section-header">
+            <h2>Final Submissions Awaiting Confirmation</h2>
+          </div>
+          <div id="pendingReviewsList">
+            <div class="loading">Loading pending reviews...</div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script src="../assets/js/client/client-pending-reviews.js" type="module"></script>
+  </body>
+</html>

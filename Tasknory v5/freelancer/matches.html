@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Freelancer Matches - Inbit</title>
+    <link rel="stylesheet" href="../assets/css/freelancer.css" />
+  </head>
+  <body>
+    <!-- ┌------------- SIDEBAR NAV -------------┐ -->
+    <nav class="sidebar" id="sidebar">
+      <div class="sidebar-head">
+        <h1 class="logo">Inbit</h1>
+        <!-- Remove the hamburger from sidebar for desktop -->
+      </div>
+
+            <div class="theme-toggle-container">
+        <button
+          id="themeToggle"
+          class="theme-toggle-btn"
+          aria-label="Toggle theme"
+        >
+          <span class="theme-icon">🌙</span>
+          <span class="theme-label">Dark Mode</span>
+        </button>
+      </div>
+
+        <ul class="nav-links">
+            <li><a href="dashboard.html" class="nav-link"><span class="icon">📊</span><span class="label">Dashboard</span></a></li>
+            <li><a href="skills.html" class="nav-link"><span class="icon">🛠️</span><span class="label">Skills</span></a></li>
+            <li><a href="matches.html" class="nav-link active"><span class="icon">🔍</span><span class="label">Matched Jobs</span></a></li>
+            <li><a href="hires.html" class="nav-link"><span class="icon">👥</span><span class="label">Projects</span></a></li>
+            <li><a href="contract.html" class="nav-link"><span class="icon">📝</span><span class="label">Contracts</span></a></li>
+            <li><a href="fees.html" class="nav-link"><span class="icon">💰</span><span class="label">Fees</span></a></li>
+            <li><a href="final-submissions.html" class="nav-link"><span class="icon">🚀</span><span class="label">Final Submissions</span></a></li>
+            <li><a href="contract-payment.html" class="nav-link"><span class="icon">💳</span><span class="label">Payment Details</span></a></li>
+            <li><a href="preview-submissions.html" class="nav-link"><span class="icon">👁️</span><span class="label">Previews</span></a></li>
+            <li><a href="settings.html" class="nav-link"><span class="icon">⚙️</span><span class="label">Settings</span></a></li>
+            <li class="nav-footer"><a href="login.html" class="nav-link logout"><span class="icon">🚪</span><span class="label">Logout</span></a></li>
+        </ul>
+    </nav>
+
+    <!-- ┌------------- MAIN CONTENT WRAPPER -------------┐ -->
+    <div class="main-wrapper" id="mainWrapper">
+      <!-- ADD THIS MOBILE HEADER -->
+      <header class="top-header">
+        <button
+          class="mobile-menu-btn"
+          id="mobileMenuBtn"
+          aria-label="Toggle menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="header-content">
+          <h1>Matched jobs</h1>
+        </div>
+      </header>
+
+      <div class="dashboard-container">
+        <!-- Your existing content here -->
+        <section class="dashboard-section">
+
+        <section class="dashboard-section">
+          <div class="section-header">
+            <h2>Matched Jobs</h2>
+          </div>
+          <div id="matchedJobs">
+            <div class="loading">Loading matched jobs...</div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- REPLACE YOUR SCRIPT WITH THIS -->
+    <script>
+      // Mobile menu functionality - SIMPLE FIXED VERSION
+      document.addEventListener("DOMContentLoaded", function () {
+        const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+        const sidebar = document.getElementById("sidebar");
+        const mainWrapper = document.getElementById("mainWrapper");
+
+        console.log("Mobile menu button:", mobileMenuBtn); // Debug log
+        console.log("Sidebar:", sidebar); // Debug log
+
+        if (mobileMenuBtn && sidebar) {
+          mobileMenuBtn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            console.log("Menu button clicked!"); // Debug log
+            sidebar.classList.toggle("mobile-open");
+            mainWrapper.classList.toggle("menu-open");
+            mobileMenuBtn.classList.toggle("active");
+          });
+
+          // Close menu when clicking on overlay
+          mainWrapper.addEventListener("click", function (e) {
+            if (
+              e.target === mainWrapper &&
+              mainWrapper.classList.contains("menu-open")
+            ) {
+              sidebar.classList.remove("mobile-open");
+              mainWrapper.classList.remove("menu-open");
+              mobileMenuBtn.classList.remove("active");
+            }
+          });
+
+          // Close menu when clicking on a link
+          document.querySelectorAll(".nav-link").forEach((link) => {
+            link.addEventListener("click", () => {
+              sidebar.classList.remove("mobile-open");
+              mainWrapper.classList.remove("menu-open");
+              mobileMenuBtn.classList.remove("active");
+            });
+          });
+        } else {
+          console.error("Mobile menu elements not found!");
+        }
+      });
+    </script>
+
+    <script src="../assets/js/freelancer.js" type="module"></script>
+  </body>
+</html>

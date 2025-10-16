@@ -1,0 +1,518 @@
+/* ┌─────────────────────────────────────────────────┐
+   │                 BADGES STYLES                   │
+   └─────────────────────────────────────────────────┘ */
+
+/* Add these new CSS variables at the top */
+:root {
+  /* Badge Specific Colors */
+  --badge-main-bg: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  --badge-main-border: #FF8C00;
+  --badge-main-text: #000000;
+  --badge-main-glow: rgba(255, 215, 0, 0.6);
+  
+  --badge-special-bg: linear-gradient(135deg, #00D4AA 0%, #008B8B 100%);
+  --badge-special-border: #00CED1;
+  --badge-special-text: #FFFFFF;
+  --badge-special-glow: rgba(0, 212, 170, 0.6);
+  
+  --badge-achievement-bg: linear-gradient(135deg, #FF6B6B 0%, #DC143C 100%);
+  --badge-achievement-border: #FF4500;
+  --badge-achievement-text: #FFFFFF;
+  --badge-achievement-glow: rgba(255, 107, 107, 0.6);
+  
+  --badge-legendary-bg: linear-gradient(135deg, #9370DB 0%, #8A2BE2 100%);
+  --badge-legendary-border: #9400D3;
+  --badge-legendary-text: #FFFFFF;
+  --badge-legendary-glow: rgba(147, 112, 219, 0.6);
+}
+
+/* RESET the conflicting badge styles */
+#badgesDisplay .badge,
+.badges-display .badge,
+.settings-form .badge {
+  all: unset !important;
+}
+
+.badges-display {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+  align-items: center !important;
+  min-height: 60px !important;
+  padding: 16px !important;
+  background: var(--bg-tertiary) !important;
+  border: 2px solid var(--border-primary) !important;
+  border-radius: 12px !important;
+  transition: all 0.3s ease !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.badges-display:hover {
+  border-color: var(--accent-primary) !important;
+  background: var(--bg-hover) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* BASE BADGE STYLES - OVERRIDE EVERYTHING */
+.badge {
+  all: initial !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 10px 18px !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.8px !important;
+  white-space: nowrap !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  border: 2px solid transparent !important;
+  color: white !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5) !important;
+  font-family: var(--font-family) !important;
+  line-height: 1.2 !important;
+  min-height: 40px !important;
+  min-width: 120px !important;
+  text-align: center !important;
+  cursor: default !important;
+  overflow: visible !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* 🏆 MAIN LADDER BADGE - HIGHEST PRIORITY (GOLD) */
+.badge.main-badge {
+  background: var(--badge-main-bg) !important;
+  color: var(--badge-main-text) !important;
+  border-color: var(--badge-main-border) !important;
+  box-shadow: 0 0 20px var(--badge-main-glow) !important;
+  font-size: 15px !important;
+  padding: 12px 20px !important;
+  order: 1 !important;
+  min-width: 140px !important;
+  position: relative !important;
+  z-index: 10 !important;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3) !important;
+}
+
+.badge.main-badge::before {
+  content: "👑 " !important;
+  margin-right: 8px !important;
+  font-size: 16px !important;
+  display: inline-block !important;
+}
+
+.badge.main-badge::after {
+  content: "" !important;
+  position: absolute !important;
+  top: -2px !important;
+  left: -2px !important;
+  right: -2px !important;
+  bottom: -2px !important;
+  border-radius: 10px !important;
+  background: linear-gradient(135deg, #FFD700, #FFA500, #FFD700) !important;
+  z-index: -1 !important;
+  opacity: 0.7 !important;
+  animation: shimmer 2s ease-in-out infinite !important;
+}
+
+/* ⭐ SPECIAL BADGES - INBIT CHOICE/PARTNER (TEAL) */
+.badge.special-badge {
+  background: var(--badge-special-bg) !important;
+  color: var(--badge-special-text) !important;
+  border-color: var(--badge-special-border) !important;
+  order: 2 !important;
+  min-width: 130px !important;
+  position: relative !important;
+  z-index: 9 !important;
+}
+
+.badge.special-badge::before {
+  content: "💎 " !important;
+  margin-right: 8px !important;
+  font-size: 16px !important;
+  display: inline-block !important;
+}
+
+.badge.special-badge::after {
+  content: "" !important;
+  position: absolute !important;
+  top: -1px !important;
+  left: -1px !important;
+  right: -1px !important;
+  bottom: -1px !important;
+  border-radius: 8px !important;
+  background: linear-gradient(135deg, #00D4AA, #008B8B, #00D4AA) !important;
+  z-index: -1 !important;
+  opacity: 0.6 !important;
+}
+
+/* 🎯 ACHIEVEMENT BADGES (RED/CRIMSON) */
+.badge.achievement-badge {
+  background: var(--badge-achievement-bg) !important;
+  color: var(--badge-achievement-text) !important;
+  border-color: var(--badge-achievement-border) !important;
+  order: 3 !important;
+  min-width: 120px !important;
+  position: relative !important;
+  z-index: 8 !important;
+  font-weight: 700 !important;
+}
+
+.badge.achievement-badge::before {
+  content: "🔥 " !important;
+  margin-right: 8px !important;
+  font-size: 16px !important;
+  display: inline-block !important;
+}
+
+.badge.achievement-badge::after {
+  content: "" !important;
+  position: absolute !important;
+  top: -1px !important;
+  left: -1px !important;
+  right: -1px !important;
+  bottom: -1px !important;
+  border-radius: 8px !important;
+  background: linear-gradient(135deg, #FF6B6B, #DC143C, #FF6B6B) !important;
+  z-index: -1 !important;
+  opacity: 0.5 !important;
+  animation: pulse 2s ease-in-out infinite !important;
+}
+
+/* 🚀 LEGENDARY BADGES (PURPLE - For future use) */
+.badge.legendary-badge {
+  background: var(--badge-legendary-bg) !important;
+  color: var(--badge-legendary-text) !important;
+  border-color: var(--badge-legendary-border) !important;
+  order: 0 !important; /* Highest priority */
+  min-width: 150px !important;
+  position: relative !important;
+  z-index: 11 !important;
+}
+
+.badge.legendary-badge::before {
+  content: "🚀 " !important;
+  margin-right: 8px !important;
+  font-size: 16px !important;
+  display: inline-block !important;
+}
+
+.badge.legendary-badge::after {
+  content: "" !important;
+  position: absolute !important;
+  top: -3px !important;
+  left: -3px !important;
+  right: -3px !important;
+  bottom: -3px !important;
+  border-radius: 10px !important;
+  background: linear-gradient(135deg, #9370DB, #8A2BE2, #9370DB) !important;
+  z-index: -1 !important;
+  opacity: 0.8 !important;
+  animation: legendaryGlow 3s ease-in-out infinite !important;
+}
+
+/* BADGE HOVER EFFECTS */
+.badge:hover {
+  transform: translateY(-4px) scale(1.05) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25) !important;
+  filter: brightness(1.15) !important;
+  z-index: 100 !important;
+}
+
+.badge.main-badge:hover {
+  box-shadow: 0 0 30px var(--badge-main-glow) !important;
+  transform: translateY(-4px) scale(1.08) !important;
+}
+
+.badge.special-badge:hover {
+  box-shadow: 0 0 30px var(--badge-special-glow) !important;
+  transform: translateY(-4px) scale(1.08) !important;
+}
+
+.badge.achievement-badge:hover {
+  box-shadow: 0 0 30px var(--badge-achievement-glow) !important;
+  transform: translateY(-4px) scale(1.08) !important;
+}
+
+.badge.legendary-badge:hover {
+  box-shadow: 0 0 40px var(--badge-legendary-glow) !important;
+  transform: translateY(-4px) scale(1.1) !important;
+}
+
+/* EMPTY STATE */
+.badges-display:empty::before {
+  content: "No badges earned yet" !important;
+  color: var(--text-muted) !important;
+  font-style: italic !important;
+  font-size: 14px !important;
+  display: block !important;
+  width: 100% !important;
+  text-align: center !important;
+  padding: 20px !important;
+}
+
+/* ANIMATIONS */
+@keyframes badgePop {
+  0% {
+    transform: scale(0.5) rotate(-10deg) !important;
+    opacity: 0 !important;
+  }
+  60% {
+    transform: scale(1.1) rotate(5deg) !important;
+  }
+  100% {
+    transform: scale(1) rotate(0deg) !important;
+    opacity: 1 !important;
+  }
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    opacity: 0.5 !important;
+  }
+  50% {
+    opacity: 0.8 !important;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.4 !important;
+  }
+  50% {
+    opacity: 0.7 !important;
+  }
+}
+
+@keyframes legendaryGlow {
+  0%, 100% {
+    opacity: 0.6 !important;
+    transform: scale(1) !important;
+  }
+  50% {
+    opacity: 0.9 !important;
+    transform: scale(1.02) !important;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) !important;
+  }
+  50% {
+    transform: translateY(-5px) !important;
+  }
+}
+
+.badge {
+  animation: badgePop 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.badge.main-badge {
+  animation: badgePop 0.6s cubic-bezier(0.4, 0, 0.2, 1), float 3s ease-in-out infinite 0.6s !important;
+}
+
+.badge.legendary-badge {
+  animation: badgePop 0.8s cubic-bezier(0.4, 0, 0.2, 1), legendaryGlow 4s ease-in-out infinite 0.8s !important;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 1024px) {
+  .badges-display {
+    gap: 10px !important;
+    padding: 14px !important;
+    min-height: 55px !important;
+  }
+  
+  .badge {
+    padding: 8px 16px !important;
+    font-size: 13px !important;
+    min-width: 110px !important;
+    min-height: 36px !important;
+  }
+  
+  .badge.main-badge {
+    padding: 10px 18px !important;
+    font-size: 14px !important;
+    min-width: 130px !important;
+  }
+  
+  .badge.legendary-badge {
+    padding: 11px 19px !important;
+    font-size: 14px !important;
+    min-width: 140px !important;
+  }
+  
+  .badge::before {
+    font-size: 14px !important;
+    margin-right: 6px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .badges-display {
+    gap: 8px !important;
+    padding: 12px !important;
+    min-height: 50px !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+  }
+  
+  .badge {
+    padding: 8px 14px !important;
+    font-size: 12px !important;
+    min-width: 100px !important;
+    min-height: 34px !important;
+    flex: 0 1 auto !important;
+  }
+  
+  .badge.main-badge {
+    padding: 9px 16px !important;
+    font-size: 13px !important;
+    min-width: 120px !important;
+  }
+  
+  .badge.legendary-badge {
+    padding: 10px 17px !important;
+    font-size: 13px !important;
+    min-width: 130px !important;
+  }
+  
+  .badge::before {
+    font-size: 13px !important;
+    margin-right: 5px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .badges-display {
+    gap: 6px !important;
+    padding: 10px !important;
+    min-height: 45px !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+  
+  .badge {
+    padding: 6px 12px !important;
+    font-size: 11px !important;
+    min-width: 90px !important;
+    min-height: 32px !important;
+    letter-spacing: 0.5px !important;
+  }
+  
+  .badge.main-badge {
+    padding: 7px 14px !important;
+    font-size: 12px !important;
+    min-width: 110px !important;
+  }
+  
+  .badge.legendary-badge {
+    padding: 8px 15px !important;
+    font-size: 12px !important;
+    min-width: 120px !important;
+  }
+  
+  .badge::before {
+    font-size: 12px !important;
+    margin-right: 4px !important;
+  }
+  
+  .badges-display:empty::before {
+    font-size: 13px !important;
+    padding: 15px !important;
+  }
+}
+
+/* PRIORITY VISUAL INDICATORS */
+.badge.legendary-badge {
+  border-width: 4px !important;
+  border-style: double !important;
+}
+
+.badge.main-badge {
+  border-width: 3px !important;
+  border-style: solid !important;
+}
+
+.badge.special-badge {
+  border-width: 2px !important;
+  border-style: solid !important;
+}
+
+.badge.achievement-badge {
+  border-width: 2px !important;
+  border-style: dashed !important;
+}
+
+/* GLOW EFFECTS FOR IMPORTANCE */
+.badge.legendary-badge {
+  filter: drop-shadow(0 0 15px var(--badge-legendary-glow)) !important;
+}
+
+.badge.main-badge {
+  filter: drop-shadow(0 0 12px var(--badge-main-glow)) !important;
+}
+
+.badge.special-badge {
+  filter: drop-shadow(0 0 8px var(--badge-special-glow)) !important;
+}
+
+.badge.achievement-badge {
+  filter: drop-shadow(0 0 6px var(--badge-achievement-glow)) !important;
+}
+
+/* TEXT VISIBILITY ENHANCEMENT */
+.badge span {
+  color: inherit !important;
+  font-weight: inherit !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7) !important;
+  display: inline !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.badge.main-badge span {
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5) !important;
+}
+
+/* SPECIFIC OVERRIDES FOR THE SETTINGS PAGE */
+#freelancerSettingsForm .badge,
+.settings-form .badge,
+.settings-container .badge {
+  all: unset !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 2px 2px !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  color: white !important;
+  background: var(--gradient-primary) !important;
+  border: 2px solid transparent !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  min-height: 40px !important;
+  min-width: 120px !important;
+  text-align: center !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* FORCE REMOVE ANY CIRCULAR STYLES */
+#badgesDisplay *,
+.badges-display *,
+.badge * {
+  border-radius: 8px !important;
+  width: auto !important;
+  height: auto !important;
+  min-width: auto !important;
+  min-height: auto !important;
+  max-width: none !important;
+  max-height: none !important;
+}

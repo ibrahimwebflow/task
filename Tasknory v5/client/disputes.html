@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Raise Dispute - Tasknory</title>
+  <link rel="stylesheet" href="../assets/css/client.css" />
+</head>
+<body>
+  <nav class="sidebar">
+    <div class="sidebar-head"><h1 class="logo">Tasknory</h1></div>
+    <ul class="nav-links">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="hires.html">My Hires</a></li>
+      <li><a href="pending-reviews.html">Pending Reviews</a></li>
+      <li><a href="raise-dispute.html" class="active">Raise Dispute</a></li>
+    </ul>
+  </nav>
+
+  <div class="main-wrapper">
+    <header class="top-header"><h1>Raise a Dispute</h1></header>
+
+    <main class="dashboard-container">
+      <section class="dashboard-section">
+        <div class="section-header"><h2>Create Dispute</h2></div>
+
+        <div id="formWrap">
+          <p>Select the final submission you want to dispute (admin-approved):</p>
+
+          <label for="finalSelect">Approved Final Submissions</label>
+          <select id="finalSelect" style="width:100%; padding:8px; margin-bottom:12px;">
+            <option value="">-- loading submissions --</option>
+          </select>
+
+          <label for="reason">Reason (explain the problem)</label>
+          <textarea id="reason" rows="6" style="width:100%" placeholder="Describe the issue for admin..."></textarea>
+
+          <label for="proof">Optional: Upload proof (image / PDF)</label>
+          <input id="proof" type="file" accept="image/*,.pdf" />
+
+          <div style="margin-top:12px;">
+            <button id="submitDispute" class="btn">Submit Dispute</button>
+            <button id="cancelBtn" class="btn btn-secondary" style="margin-left:8px;">Cancel</button>
+          </div>
+
+          <div id="result" style="margin-top:12px; font-family:monospace;"></div>
+        </div>
+      </section>
+
+
+      <!-- EXISTING FORM ABOVE -->
+
+<section class="dashboard-section" style="margin-top: 2rem;">
+  <div class="section-header">
+    <h2>My Disputes</h2>
+  </div>
+
+  <div id="myDisputesList">
+    <p>Loading your disputes...</p>
+  </div>
+</section>
+
+    </main>
+  </div>
+
+  <script type="module" src="../assets/js/client-raise-dispute.js"></script>
+</body>
+</html>

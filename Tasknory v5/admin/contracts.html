@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Manage Contracts</title>
+    <link rel="stylesheet" href="../assets/css/admin.css" />
+    <link rel="stylesheet" href="../assets/css/admin/contracts.css" />
+  </head>
+  <body>
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar">
+      <div class="sidebar-head">
+        <h1 class="logo">Inbit Admin</h1>
+      </div>
+      <!-- Add this right after .sidebar-head -->
+      <div class="theme-toggle-container">
+        <button
+          id="themeToggle"
+          class="theme-toggle-btn"
+          aria-label="Toggle theme"
+        >
+          <span class="theme-icon">🌙</span>
+          <span class="theme-label">Dark Mode</span>
+        </button>
+      </div>
+
+      <ul class="nav-links">
+        <li>
+          <a href="dashboard.html" class="nav-link"
+            ><span class="icon">⌘</span><span class="label">Dashboard</span></a
+          >
+        </li>
+        <li>
+          <a href="admin-skills.html" class="nav-link"
+            ><span class="icon">🛠️</span
+            ><span class="label">Skill Verifications</span></a
+          >
+        </li>
+        <li>
+          <a href="final-submissions.html" class="nav-link"
+            ><span class="icon">🚀</span
+            ><span class="label">Final Submissions</span></a
+          >
+        </li>
+        <li>
+          <a href="fees.html" class="nav-link"
+            ><span class="icon">💰</span><span class="label">Fees</span></a
+          >
+        </li>
+        <li>
+          <a href="payment-methods.html" class="nav-link"
+            ><span class="icon">💳</span
+            ><span class="label">Payment Methods</span></a
+          >
+        </li>
+        <li>
+          <a href="contracts.html" class="nav-link active"
+            ><span class="icon">📝</span><span class="label">Contracts</span></a
+          >
+        </li>
+        <li class="nav-footer">
+          <a href="login.html" class="nav-link logout"
+            ><span class="icon">🚪</span><span class="label">Logout</span></a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-wrapper" id="mainWrapper">
+      <header class="top-header">
+        <button
+          class="mobile-menu-btn"
+          id="mobileMenuBtn"
+          aria-label="Toggle menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="header-content">
+          <h1>Manage Contracts</h1>
+          <div class="user-info">
+            <span>Admin Panel</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="contracts-container">
+        <div class="page-header">
+          <h2>Contract Management</h2>
+          <p>Review and manage all platform contracts</p>
+        </div>
+
+        <div class="admin-section">
+          <div class="section-header">
+            <h2>All Contracts</h2>
+            <div class="filters">
+              <select id="statusFilter" class="form-input">
+                <option value="all">All Statuses</option>
+                <option value="pending">Pending</option>
+                <option value="verified">Verified</option>
+                <option value="freelancer_received">Freelancer Received</option>
+                <option value="completed">Completed</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="adminContractsList">
+            <div class="loading">Loading contracts...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="../assets/js/admin-ui.js" type="module"></script>
+    <script type="module" src="../assets/js/admin/contracts.js"></script>
+
+    <script>
+      // Filter functionality
+      document
+        .getElementById("statusFilter")
+        .addEventListener("change", function () {
+          const status = this.value;
+          const cards = document.querySelectorAll("#adminContractsList .card");
+
+          cards.forEach((card) => {
+            if (status === "all") {
+              card.style.display = "block";
+            } else {
+              const cardStatus = card
+                .querySelector(".status-badge")
+                ?.textContent.toLowerCase();
+              card.style.display = cardStatus === status ? "block" : "none";
+            }
+          });
+        });
+
+      // Mobile menu functionality
+      document.addEventListener("DOMContentLoaded", function () {
+        const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+        const sidebar = document.getElementById("sidebar");
+        const mainWrapper = document.getElementById("mainWrapper");
+
+        if (mobileMenuBtn && sidebar) {
+          mobileMenuBtn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            sidebar.classList.toggle("mobile-open");
+            mainWrapper.classList.toggle("menu-open");
+            mobileMenuBtn.classList.toggle("active");
+          });
+
+          // Close menu when clicking on overlay
+          mainWrapper.addEventListener("click", function (e) {
+            if (
+              e.target === mainWrapper &&
+              mainWrapper.classList.contains("menu-open")
+            ) {
+              sidebar.classList.remove("mobile-open");
+              mainWrapper.classList.remove("menu-open");
+              mobileMenuBtn.classList.remove("active");
+            }
+          });
+
+          // Close menu when clicking on a link
+          document.querySelectorAll(".nav-link").forEach((link) => {
+            link.addEventListener("click", () => {
+              sidebar.classList.remove("mobile-open");
+              mainWrapper.classList.remove("menu-open");
+              mobileMenuBtn.classList.remove("active");
+            });
+          });
+        }
+      });
+
+      document.addEventListener('DOMContentLoaded', function() {
+    // Mobile menu functionality
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const sidebar = document.getElementById('sidebar');
+    const mainWrapper = document.getElementById('mainWrapper');
+
+    if (mobileMenuBtn && sidebar) {
+        mobileMenuBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            sidebar.classList.toggle('mobile-open');
+            mainWrapper.classList.toggle('menu-open');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // Close menu when clicking on overlay
+        mainWrapper.addEventListener('click', function(e) {
+            if (e.target === mainWrapper && mainWrapper.classList.contains('menu-open')) {
+                sidebar.classList.remove('mobile-open');
+                mainWrapper.classList.remove('menu-open');
+                mobileMenuBtn.classList.remove('active');
+            }
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach((link) => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('mobile-open');
+                mainWrapper.classList.remove('menu-open');
+                mobileMenuBtn.classList.remove('active');
+            });
+        });
+    }
+
+    // Tab navigation functionality
+    const tabButtons = document.querySelectorAll('.admin-nav button');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove active class from all buttons
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            // Add active class to clicked button
+            button.classList.add('active');
+            
+            // Hide all tab contents
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // Show corresponding tab content
+            const tabId = button.getAttribute('data-tab');
+            const tabContent = document.getElementById(tabId);
+            if (tabContent) {
+                tabContent.classList.add('active');
+            }
+        });
+    });
+});
+    </script>
+  </body>
+</html>

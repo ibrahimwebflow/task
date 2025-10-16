@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasknory Homepage</title>
+    <!-- CSS Links -->
+<link rel="stylesheet" href="styles.css">
+
+<!-- Font Awesome for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <!-- Mobile Navigation -->
+<nav class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav-header">
+        <span class="logo">Tasknory V1</span>
+        <button class="mobile-close-btn" id="mobileCloseBtn">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <ul class="mobile-nav-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#problem">Problem</a></li>
+        <li><a href="#solution">Solution</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#evolution">Roadmap</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#join">Join</a></li>
+    </ul>
+    <div class="mobile-nav-actions">
+        <a href="client/login.html" class="btn btn-primary">Post a Job</a>
+        <a href="freelancer/signup.html" class="btn btn-outline">Join as Freelancer</a>
+    </div>
+</nav>
+
+<!-- Main Navigation -->
+<header class="main-header">
+    <div class="container header-container">
+        <div class="logo">
+            <span class="logo-icon">T</span>
+            <span class="logo-text">Tasknory V1</span>
+        </div>
+        
+        <nav class="desktop-nav">
+            <ul>
+                <li><a href="#problem">Problem</a></li>
+                <li><a href="#solution">Solution</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#evolution">Roadmap</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+        </nav>
+        
+        <div class="header-actions">
+            <a href="login.html" class="btn btn-text">Login</a>
+            <a href="client/login.html" class="btn btn-primary">Post a Job</a>
+            <a href="freelancer/signup.html" class="btn btn-outline">Join as Freelancer</a>
+        </div>
+        
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+</header>
+    
+    
+    <!--
+  HERO SECTION — Tasknory
+  - Purpose: instant brand, mission, two clear CTAs (Client / Freelancer)
+  - Replace images in .hero-visual (src & srcset) with production assets.
+  - Dynamic counters use data-* attributes for JS injection.
+-->
+
+<section id="hero" class="hero" aria-labelledby="hero-heading" role="region">
+  <div class="container hero-grid">
+
+    <!-- LEFT: messaging & CTAs -->
+    <div class="hero-left" aria-hidden="false">
+      <!-- Primary headline -->
+      <h1 id="hero-heading" class="hero-title">
+        Tasknory — freelancing, reimagined.
+      </h1>
+
+      <!-- Short emotional tagline -->
+      <p class="hero-tagline">
+        Built for fairness, powered by real trust. Connect with verified talent, hire with confidence,
+        and deliver work that matters.
+      </p>
+
+      <!-- Supporting subtext — explain the promise in 1–2 lines -->
+      <p class="hero-subtext">
+        Tasknory brings the best parts of trust, speed, and clarity to every project.
+        No more ghost payments, low visibility, or wasted time — only meaningful work and fair rewards.
+      </p>
+
+      <!-- Benefit bullets (3 primary) -->
+      <ul class="hero-benefits" role="list" aria-label="Tasknory benefits">
+        <li class="benefit">
+          <!-- small inline svg placeholder — replace with icons in CSS or as images -->
+          <span class="benefit-icon" aria-hidden="true">🔍</span>
+          <div class="benefit-body">
+            <strong>Smart matching</strong>
+            <span class="benefit-desc">See the best freelancers for your job — fast and relevant.</span>
+          </div>
+        </li>
+
+        <li class="benefit">
+          <span class="benefit-icon" aria-hidden="true">🛡️</span>
+          <div class="benefit-body">
+            <strong>Verified profiles</strong>
+            <span class="benefit-desc">ID checks, skill verifications and admin quality review for peace of mind.</span>
+          </div>
+        </li>
+
+        <li class="benefit">
+          <span class="benefit-icon" aria-hidden="true">⚖️</span>
+          <div class="benefit-body">
+            <strong>Fair economy</strong>
+            <span class="benefit-desc">Transparent fees, clear payouts, and recognition that rewards real work.</span>
+          </div>
+        </li>
+      </ul>
+
+      <!-- Primary CTAs: clear actions for both user types -->
+      <div class="hero-ctas" role="group" aria-label="Primary actions">
+        <!-- Client: Post a job -->
+        <a href="client/post-job.html" class="btn btn-primary" id="cta-post-job" role="button" aria-label="Post a Job">
+          Post a Job (Client)
+        </a>
+
+        <!-- Freelancer: Create profile -->
+        <a href="freelancer/signup.html" class="btn btn-outline" id="cta-signup-freelancer" role="button" aria-label="Create Freelancer Profile">
+          Join as Freelancer
+        </a>
+      </div>
+
+      <!-- Secondary CTAs & trust microcopy -->
+      <div class="hero-meta">
+        <a href="#how-it-works" class="link-link" id="cta-how-it-works">How Tasknory works</a>
+        <span class="dot">•</span>
+        <a href="#roadmap" class="link-link">Roadmap</a>
+
+        <!-- Quick trust strip (small) -->
+        <p class="trust-line" aria-hidden="false">
+          <strong>Trusted by early creators</strong> — small teams, agencies and independent freelancers testing Tasknory now.
+        </p>
+      </div>
+    </div>
+
+    <!-- RIGHT: visual / dynamic counters -->
+    <div class="hero-right" aria-hidden="false">
+      <!-- Visual: illustration or hero image.
+           Replace src, srcset with your final images. Keep aspect ratio responsive. -->
+      <figure class="hero-visual" role="img" aria-label="Tasknory illustration">
+        <picture>
+          <!-- prefer modern formats if available -->
+          <source srcset="assets/images/hero-1.jpg" type="image/jpg" />
+          <img src="assets/images/hero-1.jpg" alt="Illustration: freelancer and client collaborating" loading="lazy" />
+        </picture>
+      </figure>
+
+      <!-- Dynamic counters — populate with JS for live numbers -->
+      <div class="hero-stats" role="list" aria-label="Platform statistics">
+        <div class="stat" role="listitem">
+          <div class="stat-number" data-stat="freelancers" aria-live="polite">0</div>
+          <div class="stat-label">Freelancers</div>
+        </div>
+
+        <div class="stat" role="listitem">
+          <div class="stat-number" data-stat="jobs" aria-live="polite">0</div>
+          <div class="stat-label">Jobs Posted</div>
+        </div>
+
+        <div class="stat" role="listitem">
+          <div class="stat-number" data-stat="matches" aria-live="polite">0</div>
+          <div class="stat-label">Matches Made</div>
+        </div>
+      </div>
+
+      <!-- Small testimonial / quote block (optional) -->
+      <blockquote class="hero-quote" aria-hidden="true">
+        <p class="quote-text">“Finally — a platform that respects both the freelancer and the client.”</p>
+        <cite class="quote-author">— Early Tester</cite>
+      </blockquote>
+    </div>
+  </div>
+
+  <!-- Decorative / full-width CTA area (optional) -->
+  <div class="hero-banner">
+    <p>
+      <strong>We’re building something big.</strong>
+      Join early for special perks, badges, and priority onboarding.
+      <a href="signup.html" class="link-cta">Sign up to join the waitlist →</a>
+    </p>
+  </div>
+</section>
+
+<!--
+  NOTES:
+  - CSS: .container, .hero-grid, .hero-left, .hero-right, .hero-visual, .hero-stats, .stat, .btn,
+    .btn-primary, etc. Replace with your design system or let DeepSeek generate a theme.
+  - JS: populate counters by selecting elements with data-stat attributes, e.g.:
+      document.querySelectorAll('[data-stat]').forEach(el => el.textContent = formatNumber(value));
+  - Accessibility: ARIA labels added; ensure focus styles are visible when styling.
+  - Content: change microcopy to match tone (I kept it founder-forward & sincere).
+-->
+
+
+<!-- =========================
+   SECTION 2 — THE PROBLEM
+   ========================= -->
+<section id="problem" class="problem-section" aria-labelledby="problem-heading" role="region">
+  <div class="container">
+
+    <!-- Section Heading -->
+    <header class="section-header">
+      <h2 id="problem-heading" class="section-title">
+        The Problem We’re Solving
+      </h2>
+      <p class="section-subtitle">
+        Freelancing was meant to create freedom — but today, it’s full of frustration for both freelancers and clients.
+      </p>
+    </header>
+
+    <!-- Problem Grid: Left = freelancers, Right = clients -->
+    <div class="problem-grid">
+
+      <!-- FREELANCERS' PAIN -->
+      <article class="problem-card freelancer-problem" role="article">
+        <h3 class="problem-title">Freelancers are tired of being invisible.</h3>
+        <ul class="problem-list" role="list" aria-label="Freelancer struggles">
+          <li>
+            <span class="problem-icon" aria-hidden="true">🚫</span>
+            <div class="problem-text">
+              <strong>Low visibility:</strong> Great talents never get seen — the algorithm hides new freelancers behind older ones.
+            </div>
+          </li>
+          <li>
+            <span class="problem-icon" aria-hidden="true">💸</span>
+            <div class="problem-text">
+              <strong>Unfair fees:</strong> Losing up to 20% or more on every project just to access work they already earned.
+            </div>
+          </li>
+          <li>
+            <span class="problem-icon" aria-hidden="true">😤</span>
+            <div class="problem-text">
+              <strong>Unpaid effort:</strong> Countless proposals go unread, and some clients disappear after work is done.
+            </div>
+          </li>
+          <li>
+            <span class="problem-icon" aria-hidden="true">⚠️</span>
+            <div class="problem-text">
+              <strong>Unclear trust:</strong> Fake job posts, poor communication, and biased policies make the system exhausting.
+            </div>
+          </li>
+        </ul>
+        <p class="problem-summary">
+          Freelancers want to focus on building, not begging — but the current system isn’t designed for them.
+        </p>
+      </article>
+
+      <!-- CLIENTS' PAIN -->
+      <article class="problem-card client-problem" role="article">
+        <h3 class="problem-title">Clients just want reliable, real talent.</h3>
+        <ul class="problem-list" role="list" aria-label="Client struggles">
+          <li>
+            <span class="problem-icon" aria-hidden="true">⏳</span>
+            <div class="problem-text">
+              <strong>Time wasted:</strong> Scrolling through hundreds of irrelevant proposals that don’t match the job.
+            </div>
+          </li>
+          <li>
+            <span class="problem-icon" aria-hidden="true">💬</span>
+            <div class="problem-text">
+              <strong>Poor communication:</strong> Deadlines missed, freelancers vanishing mid-project, or unclear expectations.
+            </div>
+          </li>
+          <li>
+            <span class="problem-icon" aria-hidden="true">🧩</span>
+            <div class="problem-text">
+              <strong>Inconsistent quality:</strong> It’s hard to tell real experts from fake portfolios or overclaimed skills.
+            </div>
+          </li>
+          <li>
+            <span class="problem-icon" aria-hidden="true">💰</span>
+            <div class="problem-text">
+              <strong>Platform fees:</strong> Paying extra just to post, message, or manage projects — without better results.
+            </div>
+          </li>
+        </ul>
+        <p class="problem-summary">
+          Clients want smooth, predictable results — not confusion, scams, or wasted effort.
+        </p>
+      </article>
+
+    </div>
+
+    <!-- Summary Line -->
+    <div class="problem-summary-footer">
+      <p>
+        The freelancing world is broken — <strong>Tasknory is here to rebuild it with trust, fairness, and clarity at its core.</strong>
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!--
+NOTES:
+- CSS: .problem-section, .problem-grid { display:grid; gap:2rem; grid-template-columns:1fr 1fr; }
+- Each .problem-card can have a subtle background or border-left accent (e.g. blue for clients, orange for freelancers).
+- .problem-icon: inline emoji or SVG icon (replace later).
+- Responsive: on mobile, grid stacks (1 column).
+-->
+
+
+<!-- =========================
+   SECTION 3 — THE SOLUTION
+   ========================= -->
+<section id="solution" class="solution-section" aria-labelledby="solution-heading" role="region">
+  <div class="container">
+
+    <!-- Section Heading -->
+    <header class="section-header">
+      <h2 id="solution-heading" class="section-title">How Tasknory Fixes This</h2>
+      <p class="section-subtitle">
+        We re-imagined freelancing from the ground up — to make it fair, transparent, and rewarding for both freelancers and clients.
+      </p>
+    </header>
+
+    <!-- Core Philosophy -->
+    <div class="solution-intro">
+      <blockquote class="core-quote">
+        “At Tasknory, freedom meets fairness — and work finally feels human again.”
+      </blockquote>
+      <p class="intro-description">
+        Instead of repeating what others did, Tasknory rebuilt the foundation of freelancing.  
+        Every part of our system — matching, communication, payments, and growth — is redesigned to remove bias, restore trust, and make success predictable.
+      </p>
+    </div>
+
+    <!-- Solution Grid -->
+    <div class="solution-grid">
+      
+      <!-- Smart Matching -->
+      <article class="solution-card" role="article">
+        <div class="icon">🤖</div>
+        <h3 class="solution-title">Smart Skill Matching</h3>
+        <p class="solution-text">
+          Our algorithm doesn’t just match by keywords — it reads the *context* of jobs and skills, ensuring only the most relevant 3–5 freelancers are shown to each client.  
+          No more endless scrolling or ignored proposals. Just direct, intelligent connections.
+        </p>
+      </article>
+
+      <!-- Transparent Profiles -->
+      <article class="solution-card" role="article">
+        <div class="icon">🪪</div>
+        <h3 class="solution-title">Transparent & Verified Profiles</h3>
+        <p class="solution-text">
+          Every freelancer’s skill is verified through real-time portfolio checks and client feedback history.  
+          Clients can instantly see proof of ability — and freelancers finally gain visibility based on skill, not luck.
+        </p>
+      </article>
+
+      <!-- Fair Payment Flow -->
+      <article class="solution-card" role="article">
+        <div class="icon">💰</div>
+        <h3 class="solution-title">Secure, Fair Payment Flow</h3>
+        <p class="solution-text">
+          Tasknory’s built-in payment structure ensures funds are safe for both sides.  
+          Freelancers get paid automatically once milestones are approved, and clients stay protected until they receive quality work.  
+          No bias, no endless disputes.
+        </p>
+      </article>
+
+      <!-- Growth & Recognition -->
+      <article class="solution-card" role="article">
+        <div class="icon">🎖️</div>
+        <h3 class="solution-title">Real Growth & Recognition</h3>
+        <p class="solution-text">
+          Tasknory rewards excellence with verified badges, levels, and consistent visibility.  
+          New freelancers aren’t buried — everyone grows based on performance, not age or algorithm favoritism.
+        </p>
+      </article>
+
+      <!-- Human-Centered Support -->
+      <article class="solution-card" role="article">
+        <div class="icon">🤝</div>
+        <h3 class="solution-title">Human-Centered Support</h3>
+        <p class="solution-text">
+          Our support isn’t AI-only — it’s a hybrid of intelligent automation and real human intervention.  
+          Every case is treated with fairness and clarity so users never feel unheard or powerless again.
+        </p>
+      </article>
+    </div>
+
+    <!-- Closing Note -->
+    <div class="solution-summary">
+      <p>
+        Freelancers finally thrive. Clients finally trust.  
+        <strong>Tasknory makes freelancing feel like it always should have — fair, fast, and fearless.</strong>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!--
+NOTES:
+- CSS tip: .solution-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:2rem; }
+- .solution-card: soft shadow, subtle hover lift, rounded corners.
+- .icon: use accent colors for visual hierarchy (blue/green/orange).
+- On mobile, grid stacks vertically.
+-->
+
+<!-- =========================
+   SECTION 4 — KEY FEATURES
+   ========================= -->
+<section id="features" class="features-section" aria-labelledby="features-heading" role="region">
+  <div class="container">
+
+    <!-- Section Heading -->
+    <header class="section-header">
+      <h2 id="features-heading" class="section-title">Experience the Tasknory Difference</h2>
+      <p class="section-subtitle">
+        Every button, every algorithm, and every connection was built with one goal:  
+        <strong>To give freelancers and clients the confidence to work without fear.</strong>
+      </p>
+    </header>
+
+    <!-- Feature Showcase Grid -->
+    <div class="features-grid">
+
+      <!-- AI Matching System -->
+      <article class="feature-card" role="article">
+        <div class="feature-icon">⚙️</div>
+        <h3 class="feature-title">AI-Powered Matching</h3>
+        <p class="feature-text">
+          Tasknory’s adaptive algorithm studies both freelancer portfolios and client job briefs to deliver <strong>precision-matched results</strong>.  
+          No more generic proposals — only skilled matches tailored to the job’s context and tone.
+        </p>
+      </article>
+
+      <!-- Verified Freelancers -->
+      <article class="feature-card" role="article">
+        <div class="feature-icon">🧩</div>
+        <h3 class="feature-title">Skill Verification & Proof-of-Work</h3>
+        <p class="feature-text">
+          Every freelancer’s listed skill must pass Tasknory’s micro-verification process — ensuring trust before any contract is signed.  
+          Our visual badge system rewards proven skill, not years of presence.
+        </p>
+      </article>
+
+      <!-- Human + AI Support -->
+      <article class="feature-card" role="article">
+        <div class="feature-icon">💬</div>
+        <h3 class="feature-title">Human + AI Support</h3>
+        <p class="feature-text">
+          Dispute? Confusion? You’re never alone.  
+          Our smart assistant handles instant cases, while human moderators step in when nuance is needed.  
+          Resolution in hours, not weeks.
+        </p>
+      </article>
+
+      <!-- Transparent Payment -->
+      <article class="feature-card" role="article">
+        <div class="feature-icon">💎</div>
+        <h3 class="feature-title">Transparent Payment Flow</h3>
+        <p class="feature-text">
+          From job posting to final submission, payments are <strong>visible, trackable, and guaranteed</strong>.  
+          Both sides always know where funds are — eliminating anxiety and distrust.
+        </p>
+      </article>
+
+      <!-- Freelancers Dashboard -->
+      <article class="feature-card" role="article">
+        <div class="feature-icon">📊</div>
+        <h3 class="feature-title">Performance Dashboard</h3>
+        <p class="feature-text">
+          Freelancers can monitor project analytics, client satisfaction, and earnings in one interactive dashboard —  
+          making growth measurable and motivating.
+        </p>
+      </article>
+
+      <!-- Clients Experience -->
+      <article class="feature-card" role="article">
+        <div class="feature-icon">🧠</div>
+        <h3 class="feature-title">Smart Client Experience</h3>
+        <p class="feature-text">
+          Clients enjoy simplified project management — from instant AI summaries of freelancer proposals  
+          to one-click communication and milestone tracking.
+        </p>
+      </article>
+
+      <!-- Future-Proof Expansion (Carefully Hidden) -->
+      <article class="feature-card" role="article">
+        <div class="feature-icon">🚀</div>
+        <h3 class="feature-title">Constant Evolution</h3>
+        <p class="feature-text">
+          Tasknory evolves with every version — introducing deeper integrations, smarter fairness systems,  
+          and unique earning models designed to reward long-term trust and creativity.  
+          <em>Something truly game-changing is coming…</em>
+        </p>
+      </article>
+    </div>
+
+    <!-- CTA -->
+    <div class="feature-cta">
+      <h3>We’re not just another freelancing site — we’re building a movement.</h3>
+      <a href="#join" class="btn-primary">Join Tasknory Early</a>
+    </div>
+
+  </div>
+</section>
+
+<!--
+NOTES:
+- CSS: .features-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:2rem; }
+- .feature-card { background:white; padding:2rem; border-radius:1rem; box-shadow:0 0 20px rgba(0,0,0,0.05); transition:all .3s; }
+- .feature-card:hover { transform:translateY(-6px); }
+-->
+
+
+<!-- =========================
+   SECTION 5 — TASKNORY EVOLUTION ROADMAP
+   ========================= -->
+<section id="evolution" class="evolution-section" aria-labelledby="evolution-heading" role="region">
+  <div class="container">
+    <header class="section-header">
+      <h2 id="evolution-heading" class="section-title">The Evolution of Tasknory</h2>
+      <p class="section-subtitle">
+        We’re not launching a product — we’re unfolding a revolution.  
+        Each version of Tasknory unlocks a new era in digital work, crafted with purpose and precision.
+      </p>
+    </header>
+
+    <div class="timeline">
+
+      <!-- Version 1 -->
+      <div class="timeline-step">
+        <div class="timeline-icon">🌍</div>
+        <div class="timeline-content">
+          <h3>Version 1 — The Foundation</h3>
+          <p>
+            The birth of Tasknory.  
+            A stable, secure platform built with <strong>fair AI matching, verified users,</strong> and a transparent job flow system.  
+            Here, the world meets a freelancing marketplace that finally <em>listens</em> to its community.
+          </p>
+        </div>
+      </div>
+
+      <!-- Version 2 -->
+      <div class="timeline-step">
+        <div class="timeline-icon">⚡</div>
+        <div class="timeline-content">
+          <h3>Version 2 — The Voice of the Community</h3>
+          <p>
+            Tasknory expands its ecosystem:  
+            <strong>freelancer feedback loops, client analytics, and adaptive algorithms</strong> that learn from real performance data.  
+            This version gives users control — shaping how matches and opportunities are generated.
+          </p>
+        </div>
+      </div>
+
+      <!-- Version 3 -->
+      <div class="timeline-step">
+        <div class="timeline-icon">🤝</div>
+        <div class="timeline-content">
+          <h3>Version 3 — Trust & Collaboration</h3>
+          <p>
+            Introducing <strong>project-based collaboration rooms</strong>, verified milestones, and dual rating systems.  
+            Every interaction is designed to build a reputation that reflects truth, not bias.
+          </p>
+        </div>
+      </div>
+
+      <!-- Version 4 -->
+      <div class="timeline-step">
+        <div class="timeline-icon">🧠</div>
+        <div class="timeline-content">
+          <h3>Version 4 — Intelligence & Personalization</h3>
+          <p>
+            Smarter recommendations, performance insights, and personalized growth suggestions.  
+            Tasknory becomes a <strong>career accelerator</strong> for freelancers and a <strong>quality compass</strong> for clients.
+          </p>
+        </div>
+      </div>
+
+      <!-- Version 5 -->
+      <div class="timeline-step">
+        <div class="timeline-icon">🚀</div>
+        <div class="timeline-content">
+          <h3>Version 5 — The Transformation</h3>
+          <p>
+            The final leap.  
+            A fully autonomous, fair, and value-based freelancing economy.  
+            Details remain confidential — but it will <strong>redefine how work, reward, and trust flow online.</strong>  
+            Tasknory V5 isn’t an update — it’s the beginning of something far greater.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CTA -->
+    <div class="timeline-cta">
+      <h3>Every version builds towards one vision — a fairer digital world for all.</h3>
+      <a href="#join" class="btn-primary">Be Part of the Journey</a>
+    </div>
+  </div>
+</section>
+
+<!--
+NOTES:
+- CSS:
+  .timeline { display: flex; flex-direction: column; gap: 2rem; position: relative; padding-left: 2rem; border-left: 3px solid rgba(0,0,0,0.1); }
+  .timeline-step { display: flex; align-items: flex-start; gap: 1rem; }
+  .timeline-icon { font-size: 1.8rem; background: #f4f4f4; border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+  .timeline-content h3 { margin-bottom: .5rem; font-weight: 600; }
+  .timeline-content p { color: #444; }
+  .timeline-cta { text-align: center; margin-top: 3rem; }
+-->
+
+<!-- 🌟 Top Freelancers Section -->
+<section class="top-freelancers">
+  <div class="container">
+    <h2 class="section-title">Meet Our Top Freelancers</h2>
+    <p class="section-subtitle">
+      Some of the best talents already shaping the future on Tasknory.
+    </p>
+
+    <div class="freelancer-grid">
+      <!-- Freelancer 1 -->
+      <div class="freelancer-card">
+        <img src="assets/images/freelancer1.jpg" alt="Freelancer 1" class="freelancer-photo" />
+        <h3 class="freelancer-name">Rameen Rana</h3>
+        <p class="freelancer-skill">Social Media manager & Canva deisgner</p>
+        <div class="freelancer-badge">Elite</div>
+        <p class="freelancer-desc">
+          Plans, designs and schedules scroll-stopping posts; grew accounts 3× in 3 months with branded Canva visuals.
+        </p>
+        <button class="btn-profile">View Profile</button>
+      </div>
+
+      <!-- Freelancer 2 -->
+      <div class="freelancer-card">
+        <img src="assets/images/freelancer2.jpg" alt="Freelancer 2" class="freelancer-photo" />
+        <h3 class="freelancer-name">Ibrahim Temitope</h3>
+        <p class="freelancer-skill">Senior Developer & Software developer</p>
+        <div class="freelancer-badge">Elite</div>
+        <p class="freelancer-desc">
+          Architects full-stack apps with clean code; led 12 products from MVP to launch, earning 5-star client reviews every sprint.
+        </p>
+        <button class="btn-profile">View Profile</button>
+      </div>
+
+      <!-- Freelancer 3 -->
+      <div class="freelancer-card">
+        <img src="assets/images/freelancer3.jpg" alt="Freelancer 3" class="freelancer-photo" />
+        <h3 class="freelancer-name">Uthman Mubarak</h3>
+        <p class="freelancer-skill">FUll Stack web developer</p>
+        <div class="freelancer-badge">Elite</div>
+        <p class="freelancer-desc">
+          Codes pixel-perfect UIs and serverless APIs; automates chores with Python bots, cutting task time 40% for every client.
+        </p>
+        <button class="btn-profile">View Profile</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+   SECTION 6 — JOIN THE REVOLUTION
+   ========================= -->
+<section id="join" class="join-section" aria-labelledby="join-heading" role="region">
+  <div class="container">
+    <header class="section-header">
+      <h2 id="join-heading" class="section-title">Join the Tasknory Revolution</h2>
+      <p class="section-subtitle">
+        Be among the pioneers rewriting the future of digital work.  
+        Whether you're a freelancer, client, or investor — your journey begins here.
+      </p>
+    </header>
+
+    <div class="join-content">
+      <div class="join-text">
+        <h3>Why Join Now?</h3>
+        <ul>
+          <li>⚙️ Experience Tasknory V1 — built on fairness, clarity, and trust.</li>
+          <li>🧭 Get early access to our evolving features and algorithm updates.</li>
+          <li>💬 Contribute your voice in shaping how the future versions are built.</li>
+          <li>🌍 Be recognized as an early Tasknorian — one of the first to believe in the vision.</li>
+        </ul>
+
+        <p class="highlight">
+          We're not chasing trends — we're designing tomorrow.  
+          Every update, every feature, and every challenge leads us closer to a freelancing world that truly works for everyone.
+        </p>
+      </div>
+
+      <div class="join-actions">
+        <a href="signup.html" class="btn-primary">Join Tasknory</a>
+        <a href="about.html" class="btn-secondary">Learn More</a>
+      </div>
+    </div>
+
+    <div class="community-showcase">
+      <p class="mini-heading">Already joining us</p>
+      <div class="avatars">
+        <img src="assets/img/users/user1.jpg" alt="User 1">
+        <img src="assets/img/users/user2.jpg" alt="User 2">
+        <img src="assets/img/users/user3.jpg" alt="User 3">
+        <span class="count">+100 early users</span>
+      </div>
+    </div>
+
+    <footer class="join-footer">
+      <h4>"The future belongs to those who build it — not those who wait for it."</h4>
+      <p>— The Tasknory Team</p>
+    </footer>
+  </div>
+</section>
+
+<!--
+NOTES:
+- CSS suggestion for deepseek:
+  .join-section { background: linear-gradient(to right, #111, #222); color: white; text-align: center; padding: 5rem 2rem; }
+  .join-text ul { text-align: left; max-width: 600px; margin: 2rem auto; }
+  .highlight { font-style: italic; margin-top: 1rem; color: #ffcc66; }
+  .join-actions { display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; }
+  .avatars { display: flex; gap: .5rem; justify-content: center; align-items: center; margin-top: 2rem; }
+  .avatars img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid white; }
+  .count { font-size: .9rem; opacity: 0.8; }
+  .join-footer { margin-top: 3rem; font-size: 1.1rem; opacity: 0.9; }
+-->
+
+<!-- 🧠 FAQ Section -->
+<section class="faq-section" id="faq">
+  <div class="container">
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <p class="section-subtitle">
+      Everything you need to know about how Tasknory empowers freelancers and clients.
+    </p>
+
+    <div class="faq-grid">
+      <!-- FAQ 1 -->
+      <div class="faq-item">
+        <h3 class="faq-question">💡 What is Tasknory?</h3>
+        <p class="faq-answer">
+          Tasknory is a next-generation freelancing platform built to bridge the gap between 
+          freelancers and clients through fairness, innovation, and transparency. 
+          We’re solving long-standing issues in the freelancing world — 
+          from poor visibility to unfair policies — and creating a space where talent thrives.
+        </p>
+      </div>
+
+      <!-- FAQ 2 -->
+      <div class="faq-item">
+        <h3 class="faq-question">🧾 How does Tasknory ensure freelancers get paid?</h3>
+        <p class="faq-answer">
+          Tasknory’s transaction flow (starting in later versions) is designed to protect both sides.
+          Clients fund their projects before work begins, and payments are released only after
+          verified project completion. Freelancers enjoy confidence knowing their efforts
+          are always backed by guaranteed funds.
+        </p>
+      </div>
+
+      <!-- FAQ 3 -->
+      <div class="faq-item">
+        <h3 class="faq-question">🎯 What makes Tasknory different from Fiverr or Upwork?</h3>
+        <p class="faq-answer">
+          Unlike traditional freelance platforms that rely heavily on ratings and algorithms,
+          Tasknory uses <strong>skill-based matching,</strong><strong>verified achievements,</strong>
+          and a <strong>fair commission system</strong>
+          Our focus is on results and integrity — not just visibility.
+        </p>
+      </div>
+
+      <!-- FAQ 4 -->
+      <div class="faq-item">
+        <h3 class="faq-question">🤝 How do clients find freelancers?</h3>
+        <p class="faq-answer">
+          Tasknory uses an intelligent matching system to automatically connect clients 
+          with the best-qualified freelancers based on required skills, tone, and language. 
+          Clients can also view freelancer profiles, badges, and past work before hiring.
+        </p>
+      </div>
+
+      <!-- FAQ 5 -->
+      <div class="faq-item">
+        <h3 class="faq-question">🏆 What are freelancer badges?</h3>
+        <p class="faq-answer">
+          Every freelancer grows through Tasknory’s <em>achievement ladder</em> —
+          from <strong>Newbie</strong> to <strong>Elite</strong>
+          Badges like <strong>Inbit Partner</strong> 
+          reflect verified experience and performance, helping clients identify top talent easily.
+        </p>
+      </div>
+
+      <!-- FAQ 6 -->
+      <div class="faq-item">
+        <h3 class="faq-question">📈 Is Tasknory free to join?</h3>
+        <p class="faq-answer">
+          Yes! Both freelancers and clients can join Tasknory for free. 
+          We only charge a small service fee on completed contracts to sustain the ecosystem 
+          and continue building new features that improve user experience.
+        </p>
+      </div>
+
+      <!-- FAQ 7 -->
+      <div class="faq-item">
+        <h3 class="faq-question">🧠 How does Tasknory handle disputes?</h3>
+        <p class="faq-answer">
+          Our dispute system ensures fairness by reviewing both sides objectively. 
+          Tasknory moderators intervene only when necessary, analyzing communication, 
+          timelines, and proof of work to ensure just outcomes.
+        </p>
+      </div>
+
+      <!-- FAQ 8 -->
+      <div class="faq-item">
+        <h3 class="faq-question">🌍 Can freelancers from any country join?</h3>
+        <p class="faq-answer">
+          Absolutely. Tasknory is global. We believe in giving every skilled individual —
+          regardless of location — an equal chance to grow, earn, and shine.
+        </p>
+      </div>
+
+      <!-- FAQ 9 -->
+      <div class="faq-item">
+        <h3 class="faq-question">🚀 What are Tasknory’s future plans?</h3>
+        <p class="faq-answer">
+          Tasknory is evolving through multiple stages — from version 1 to 5 — 
+          with each phase unlocking deeper automation, AI integration, and financial independence 
+          for freelancers. While we can’t reveal everything yet, what’s coming next will 
+          redefine the freelance economy forever.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 🌍 Investor & Partner Call Section -->
+<section class="investor-section" id="invest">
+  <div class="container">
+    <div class="investor-content">
+      <h2 class="section-title">Join the Tasknory Revolution</h2>
+      <p class="section-subtitle">
+        Tasknory isn’t just another freelancing platform — it’s a movement to rebuild how work, trust, and creativity flow across the world.
+      </p>
+
+      <div class="investor-body">
+        <p>
+          The global freelance economy is broken — millions of talented professionals remain unseen,
+          underpaid, or limited by outdated systems. Tasknory is rewriting that story.
+          With every version, we are building a smarter, safer, and fairer world for both freelancers and clients.
+        </p>
+
+        <p>
+          From our first public launch (<strong>Tasknory V1</strong>) to our visionary roadmap up to
+          <strong>V5</strong>, each version introduces groundbreaking steps — advanced matching,
+          secure payments, verified achievements, and much more.
+          Every update strengthens our ecosystem while preparing for what’s next — a leap
+          that will redefine the very foundation of online work.
+        </p>
+
+        <h3>🌐 Why Join Now?</h3>
+        <ul class="investor-points">
+          <li>
+            <span class="icon">🚀</span>
+            <div class="point-text">
+              <strong> Early Vision Access:</strong>
+              Partner with us before global expansion begins.
+            </div>
+          </li>
+
+          <li>
+            <span class="icon">💎</span>
+            <div class="point-text">
+              <strong> Meaningful Impact:</strong>
+              Empower millions of freelancers with real fairness and opportunity.
+            </div>
+          </li>
+
+          <li>
+            <span class="icon">🧠</span>
+            <div class="point-text">
+              <strong> Innovation at Core:</strong>
+              Built with ethics, AI, and verified skill systems.
+            </div>
+          </li>
+
+          <li>
+            <span class="icon">📊</span>
+            <div class="point-text">
+              <strong> Scalable Model:</strong>
+              Designed for rapid adoption and evolving with user feedback.
+            </div>
+          </li>
+
+          <li>
+            <span class="icon">🤝</span>
+            <div class="point-text">
+              <strong> Transparent Collaboration:</strong>
+              We’re open to co-innovation, angel investment, and partnership discussions.
+            </div>
+          </li>
+        </ul>
+
+        <div class="cta-box">
+          <h3>Be Part of the Change</h3>
+          <p>
+            Tasknory is still at the early stages — and that’s the best time to join a revolution.
+            Whether you’re an investor, a developer, a designer, or a visionary who believes in the
+            future of fair work — your contribution matters.
+          </p>
+
+          <a href="mailto:partnership@tasknory.com" class="cta-button">
+            💼 Become a Partner
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+   SECTION 7 — FOOTER
+   ========================= -->
+<footer id="footer" class="footer-section" role="contentinfo">
+  <div class="container footer-grid">
+
+    <!-- COLUMN 1: Brand & Vision -->
+    <div class="footer-brand">
+      <h2 class="logo">Tasknory</h2>
+      <p class="tagline">
+        Reimagining freelancing for the modern world —  
+        Fair, transparent, and built for both freelancers and clients.
+      </p>
+      <p class="version-info">
+        Currently in <strong>V1</strong> — the foundation of the revolution.
+        <br />Next versions will roll out with deeper integrations and trust systems.
+      </p>
+    </div>
+
+    <!-- COLUMN 2: Quick Navigation -->
+    <div class="footer-links">
+      <h3>Explore</h3>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Tasknory</a></li>
+        <li><a href="signup.html">Join Us</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="blog.html">Blog & Updates</a></li>
+      </ul>
+    </div>
+
+    <!-- COLUMN 3: Connect & Socials -->
+    <div class="footer-connect">
+      <h3>Connect</h3>
+      <p>Follow our journey as we reshape the freelancing world.</p>
+
+      <div class="social-icons">
+        <a href="#" aria-label="Follow on Twitter">🐦</a>
+        <a href="#" aria-label="Follow on Instagram">📸</a>
+        <a href="#" aria-label="Follow on LinkedIn">💼</a>
+        <a href="#" aria-label="Join our WhatsApp Community">💬</a>
+      </div>
+
+      <form id="newsletterForm" class="newsletter-form">
+        <label for="newsletterEmail">Get early Tasknory updates</label>
+        <div class="newsletter-input">
+          <input type="email" id="newsletterEmail" placeholder="Enter your email" required />
+          <button type="submit">Join</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+  <!-- COPYRIGHT BAR -->
+  <div class="footer-bottom">
+    <p>&copy; <span id="year"></span> Tasknory. All rights reserved.</p>
+    <p class="footnote">
+      Built with vision. Driven by innovation. Powered by community.
+    </p>
+  </div>
+</footer>
+
+<!-- Auto-year script -->
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+<!--
+SUGGESTED CSS (for DeepSeek)
+.footer-section { background: #0a0a0a; color: #ddd; padding: 4rem 2rem 2rem; font-size: .95rem; }
+.footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; }
+.footer-brand .logo { font-size: 1.8rem; font-weight: 700; color: #fff; margin-bottom: .5rem; }
+.footer-links ul { list-style: none; padding: 0; }
+.footer-links li { margin: .5rem 0; }
+.footer-links a { color: #ccc; text-decoration: none; transition: .3s; }
+.footer-links a:hover { color: #fff; text-decoration: underline; }
+.social-icons a { margin-right: .8rem; font-size: 1.3rem; transition: .3s; color: #ddd; }
+.social-icons a:hover { color: #fff; transform: scale(1.1); }
+.newsletter-form { margin-top: 1rem; }
+.newsletter-input { display: flex; gap: .5rem; }
+.newsletter-input input { flex: 1; padding: .6rem; border-radius: 6px; border: none; }
+.newsletter-input button { background: #ffcc00; border: none; padding: .6rem 1rem; border-radius: 6px; font-weight: 600; cursor: pointer; transition: .3s; }
+.newsletter-input button:hover { background: #ffdb4d; }
+.footer-bottom { text-align: center; margin-top: 3rem; border-top: 1px solid #222; padding-top: 1.5rem; color: #aaa; }
+-->
+<!-- =========================
+   SECTION 8 — FLOATING EARLY ACCESS BANNER
+   ========================= -->
+<div id="earlyAccessBanner" class="early-access-banner">
+  <div class="banner-content">
+    <h4>🚀 Be Part of the Revolution</h4>
+    <p>Join Tasknory early and help shape the future of freelancing.</p>
+  </div>
+  <button id="joinEarlyBtn" class="join-early-btn">Get Early Access</button>
+</div>
+
+<!-- Banner JS Logic -->
+<script>
+  const banner = document.getElementById("earlyAccessBanner");
+  const joinBtn = document.getElementById("joinEarlyBtn");
+
+  // When user clicks, redirect to sign-up (or WhatsApp community if you prefer)
+  joinBtn.addEventListener("click", () => {
+    window.location.href = "signup.html";
+  });
+
+  // Optional: show banner only after scrolling down a bit
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 400) {
+      banner.classList.add("visible");
+    } else {
+      banner.classList.remove("visible");
+    }
+  });
+</script>
+
+<!--
+Suggested CSS (for DeepSeek)
+.early-access-banner {
+  position: fixed !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  background: linear-gradient(135deg, #ffc107, #ff9800) !important;
+  color: #000 !important;
+  padding: 1rem 1.5rem !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 1rem !important;
+  opacity: 0 !important;
+  transform: translateY(30px) !important;
+  transition: all 0.4s ease !important;
+  z-index: 9999 !important;
+  flex-wrap: wrap !important;
+  max-width: 320px !important;
+}
+
+.early-access-banner.visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.banner-content h4 {
+  margin: 0 !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+}
+
+.banner-content p {
+  margin: 0 !important;
+  font-size: 0.9rem !important;
+  line-height: 1.3 !important;
+}
+
+.join-early-btn {
+  background: #000 !important;
+  color: #fff !important;
+  border: none !important;
+  padding: 0.6rem 1rem !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: background 0.3s ease !important;
+}
+
+.join-early-btn:hover {
+  background: #222 !important;
+}
+-->
+
+<!-- =========================
+   SECTION 9 — TASKNORY LAUNCH ANIMATION
+   ========================= -->
+<div id="loader">
+  <div class="loader-logo">T</div>
+  <div class="loader-text">Initializing Tasknory...</div>
+</div>
+
+<script>
+  // Show loader, then hide after 2.5 seconds
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      document.getElementById("loader").classList.add("hidden");
+    }, 2500);
+  });
+</script>
+
+<!--
+Suggested CSS (for DeepSeek)
+
+#loader {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: #0b0c10 !important;
+  color: #fff !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 99999 !important;
+  transition: opacity 0.8s ease, visibility 0.8s ease !important;
+}
+
+#loader.hidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+.loader-logo {
+  font-size: 3rem !important;
+  font-weight: 900 !important;
+  background: linear-gradient(135deg, #ff9800, #ffc107) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  animation: pulse 1.8s infinite ease-in-out !important;
+}
+
+.loader-text {
+  margin-top: 1rem !important;
+  font-size: 1rem !important;
+  color: #ccc !important;
+  letter-spacing: 1px !important;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.95); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+-->
+
+<!-- Back to Top Button -->
+<button class="back-to-top" id="backToTop">
+    <i class="fas fa-chevron-up"></i>
+</button>
+
+<!-- JavaScript -->
+<script src="script.js"></script>
+</body>
+</html>

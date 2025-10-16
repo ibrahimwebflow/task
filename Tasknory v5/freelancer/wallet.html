@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wallet - Inbit</title>
+  <link rel="stylesheet" href="../assets/css/client.css">
+  <style>
+    .wallet-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .stat-card {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      text-align: center;
+    }
+    
+    .stat-number {
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    
+    .wallet-actions {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    
+    .transactions-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    
+    .transactions-table th,
+    .transactions-table td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .transactions-table th {
+      background: var(--bg-secondary);
+      font-weight: 600;
+    }
+    
+    .amount-positive {
+      color: #10b981;
+      font-weight: bold;
+    }
+    
+    .amount-negative {
+      color: #ef4444;
+      font-weight: bold;
+    }
+    
+    .transfer-section {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      margin-bottom: 2rem;
+    }
+    
+    .recipient-preview {
+      background: var(--bg-secondary);
+      padding: 1rem;
+      border-radius: 5px;
+      margin: 1rem 0;
+      display: none;
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    
+    @media (max-width: 768px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+    <!-- ┌------------- SIDEBAR NAV -------------┐ -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-head">
+            <h1 class="logo">Inbit</h1>
+        </div>
+
+        <div class="theme-toggle-container">
+          <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle theme">
+            <span class="theme-icon">🌙</span>
+            <span class="theme-label">Dark Mode</span>
+          </button>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="dashboard.html" class="nav-link"><span class="icon">📊</span><span class="label">Dashboard</span></a></li>
+            <li><a href="post-job.html" class="nav-link"><span class="icon">➕</span><span class="label">Post Job</span></a></li>
+            <li><a href="matches.html" class="nav-link"><span class="icon">🔍</span><span class="label">Matches</span></a></li>
+            <li><a href="hires.html" class="nav-link"><span class="icon">👥</span><span class="label">My Hires</span></a></li>
+            <li><a href="wallet.html" class="nav-link active"><span class="icon">💰</span><span class="label">Wallet</span></a></li>
+            <li><a href="contracts.html" class="nav-link"><span class="icon">📝</span><span class="label">Contracts</span></a></li>
+            <li><a href="preview-submissions.html" class="nav-link"><span class="icon">👁️</span><span class="label">Previews</span></a></li>
+            <li><a href="notifications.html" class="nav-link"><span class="icon">🔔</span><span class="label">Notifications</span></a></li>
+            <li><a href="settings.html" class="nav-link"><span class="icon">⚙️</span><span class="label">Settings</span></a></li>
+            <li class="nav-footer"><a href="login.html" class="nav-link logout"><span class="icon">🚪</span><span class="label">Logout</span></a></li>
+        </ul>
+    </nav>
+
+    <!-- ┌------------- MAIN CONTENT WRAPPER -------------┐ -->
+    <div class="main-wrapper" id="mainWrapper">
+        <header class="top-header">
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="header-content">
+                <h1>My Wallet</h1>
+                <div class="user-info">
+                    <span>Manage your TN coins</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="dashboard-container">
+            <section class="dashboard-section">
+                <div class="section-header">
+                    <h2>Wallet Overview</h2>
+                </div>
+
+                <!-- Wallet Stats -->
+                <div class="wallet-stats">
+                    <div class="stat-card">
+                        <div class="stat-number" id="availableBalance">0 TN</div>
+                        <div class="stat-label">Available Balance</div>
+                    </div>
+                    <div class="stat-card" id="frozenBalanceCard" style="display: none;">
+                        <div class="stat-number" id="frozenBalance">0 TN</div>
+                        <div class="stat-label">Frozen Balance</div>
+                    </div>
+                    <div class="stat-card" id="coinHoldsCard" style="display: none;">
+                        <div class="stat-number" id="coinHolds">0 TN</div>
+                        <div class="stat-label">Coin Holds</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="accountNumber">-</div>
+                        <div class="stat-label">Account Number</div>
+                    </div>
+                </div>
+
+                <!-- User Info -->
+                <div class="user-info-card card">
+                    <h3>Account Information</h3>
+                    <p><strong>Full Name:</strong> <span id="fullName">-</span></p>
+                    <p><strong>Account Type:</strong> <span id="accountType">-</span></p>
+                    <p><strong>Account Number:</strong> <span id="displayAccountNumber">-</span></p>
+                </div>
+
+                <!-- Transfer Section (Only for freelancers) -->
+                <div class="transfer-section" id="transferSection" style="display: none;">
+                    <h3>Transfer Coins</h3>
+                    <p class="form-help">You can transfer coins to other freelancers using their account number.</p>
+                    
+                    <form id="transferForm">
+                        <div class="form-group">
+                            <label for="recipientAccount">Recipient Account Number</label>
+                            <input 
+                                type="text" 
+                                id="recipientAccount" 
+                                class="form-input" 
+                                placeholder="Enter account number"
+                                maxlength="20"
+                            >
+                        </div>
+
+                        <div class="recipient-preview" id="recipientPreview">
+                            <strong>Recipient:</strong> <span id="recipientName">-</span>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="transferAmount">Amount (TN)</label>
+                                <input 
+                                    type="number" 
+                                    id="transferAmount" 
+                                    class="form-input" 
+                                    placeholder="Enter amount"
+                                    min="1"
+                                    step="1"
+                                >
+                            </div>
+                            <div class="form-group">
+                                <label for="transferNote">Note (Optional)</label>
+                                <input 
+                                    type="text" 
+                                    id="transferNote" 
+                                    class="form-input" 
+                                    placeholder="Add a note"
+                                >
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" id="cancelTransfer">Cancel</button>
+                            <button type="submit" class="btn btn-primary" id="submitTransfer">
+                                🔄 Transfer Coins
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Buy Coins Section -->
+                <div class="card">
+                    <h3>Get More Coins</h3>
+                    <p>Need more TN coins to post jobs or make transfers?</p>
+                    <button class="btn btn-success" onclick="window.location.href='buy-coins.html'">
+                        💰 Buy TN Coins
+                    </button>
+                </div>
+
+                <!-- Transaction History -->
+                <div class="card">
+                    <h3>Transaction History</h3>
+                    <div id="transactionsList">
+                        <div class="loading">Loading transactions...</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Transfer Confirmation Modal -->
+    <div id="confirmModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirm Transfer</h3>
+                <button class="close-modal" id="closeConfirmModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="confirmContent">
+                    <!-- Dynamic content will be loaded here -->
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelConfirm">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="confirmTransfer">Confirm Transfer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+            const sidebar = document.getElementById("sidebar");
+            const mainWrapper = document.getElementById("mainWrapper");
+            
+            if (mobileMenuBtn && sidebar) {
+                mobileMenuBtn.addEventListener("click", function(e) {
+                    e.stopPropagation();
+                    sidebar.classList.toggle("mobile-open");
+                    mainWrapper.classList.toggle("menu-open");
+                    mobileMenuBtn.classList.toggle("active");
+                });
+
+                mainWrapper.addEventListener('click', function(e) {
+                    if (e.target === mainWrapper && mainWrapper.classList.contains('menu-open')) {
+                        sidebar.classList.remove("mobile-open");
+                        mainWrapper.classList.remove("menu-open");
+                        mobileMenuBtn.classList.remove("active");
+                    }
+                });
+
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', () => {
+                        sidebar.classList.remove("mobile-open");
+                        mainWrapper.classList.remove("menu-open");
+                        mobileMenuBtn.classList.remove("active");
+                    });
+                });
+            }
+
+            // Modal functionality
+            const modal = document.getElementById('confirmModal');
+            const closeModal = document.getElementById('closeConfirmModal');
+            const cancelBtn = document.getElementById('cancelConfirm');
+
+            closeModal.addEventListener('click', () => modal.style.display = 'none');
+            cancelBtn.addEventListener('click', () => modal.style.display = 'none');
+
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+    
+    <script type="module" src="../assets/js/wallet.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin — Disputes</title>
+  <link rel="stylesheet" href="../assets/css/admin.css" />
+</head>
+<body>
+  <nav class="sidebar">
+    <div class="sidebar-head"><h1 class="logo">Tasknory Admin</h1></div>
+    <ul class="nav-links">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="final-submissions.html">Final Submissions</a></li>
+      <li><a href="disputes.html" class="active">Disputes</a></li>
+      <li><a href="users.html">Users</a></li>
+    </ul>
+  </nav>
+
+  <div class="main-wrapper">
+    <header class="top-header"><h1>Open Disputes</h1></header>
+
+    <main class="dashboard-container">
+      <section class="dashboard-section">
+        <div class="section-header"><h2>Pending Disputes</h2></div>
+
+        <div id="disputesContainer">
+          <div class="loading">Loading disputes...</div>
+        </div>
+
+        <div style="margin-top:18px;">
+          <button id="refreshDisputes" class="btn">Refresh</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="../assets/js/admin/admin-disputes.js"></script>
+</body>
+</html>

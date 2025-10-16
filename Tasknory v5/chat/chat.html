@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat - Inbit</title>
+    <link rel="stylesheet" href="../assets/css/chat.css" />
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Navigation Sidebar -->
+      <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <div class="logo">Inbit</div>
+          <button class="close-sidebar" id="closeSidebar">×</button>
+        </div>
+        <!-- Add this right after .sidebar-header -->
+<div class="theme-toggle-container">
+    <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle theme">
+        <span class="theme-icon">🌙</span>
+        <span class="theme-label">Dark Mode</span>
+    </button>
+</div>
+        <ul class="nav-menu" id="navMenu">
+          <!-- Navigation will be populated by JavaScript -->
+        </ul>
+      </nav>
+
+      <!-- Main Content -->
+      <div class="main-content" id="mainContent">
+        <!-- Chat Container -->
+        <div class="chat-container">
+          <!-- Chat Header -->
+          <div class="chat-header">
+            <!-- hamburger now lives here -->
+            <button class="menu-toggle" id="menuToggle">
+              <span></span><span></span><span></span>
+            </button>
+
+            <div class="chat-partner" id="chatPartner">
+              <div class="partner-avatar">👤</div>
+              <div class="partner-info">
+                <h3 id="partnerName">Loading…</h3>
+                <span id="partnerRole">…</span>
+              </div>
+            </div>
+
+            <button class="back-button" onclick="goBack()">← Back</button>
+          </div>
+          <!-- Messages Area -->
+          <div class="messages-container" id="messagesContainer">
+            <div class="messages" id="messages">
+              <!-- Messages will be loaded here -->
+            </div>
+          </div>
+
+          <!-- Message Input -->
+          <form class="message-input-form" id="messageForm">
+            <div class="input-container">
+              <input
+                type="text"
+                id="messageInput"
+                placeholder="Type a message..."
+                autocomplete="off"
+                required
+              />
+              <button type="submit" class="send-button" id="sendButton">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+                </svg>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script>
+      function goBack() {
+        if (history.length > 1) {
+          history.back();
+        } else {
+          // Redirect based on user role or to general dashboard
+          window.location.href = "../dashboard.html";
+        }
+      }
+    </script>
+    <script src="../assets/js/chat.js" type="module"></script>
+  </body>
+</html>

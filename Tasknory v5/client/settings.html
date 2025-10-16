@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Client Settings - Inbit</title>
+    <link rel="stylesheet" href="../assets/css/client.css" />
+    <link rel="stylesheet" href="../assets/css/client/settings.css" />
+  </head>
+  <body>
+    <!-- ┌------------- SIDEBAR NAV -------------┐ -->
+    <nav class="sidebar" id="sidebar">
+      <div class="sidebar-head">
+        <h1 class="logo">Inbit</h1>
+      </div>
+
+      <div class="theme-toggle-container">
+        <button
+          id="themeToggle"
+          class="theme-toggle-btn"
+          aria-label="Toggle theme"
+        >
+          <span class="theme-icon">🌙</span>
+          <span class="theme-label">Dark Mode</span>
+        </button>
+      </div>
+
+      <ul class="nav-links">
+        <li>
+          <a href="dashboard.html" class="nav-link"
+            ><span class="icon">📊</span><span class="label">Dashboard</span></a
+          >
+        </li>
+        <li>
+          <a href="post-job.html" class="nav-link"
+            ><span class="icon">➕</span><span class="label">Post Job</span></a
+          >
+        </li>
+        <li>
+          <a href="matches.html" class="nav-link"
+            ><span class="icon">🔍</span><span class="label">Matches</span></a
+          >
+        </li>
+        <li>
+          <a href="hires.html" class="nav-link"
+            ><span class="icon">👥</span><span class="label">My Hires</span></a
+          >
+        </li>
+        <li>
+          <a href="wallet.html" class="nav-link"
+            ><span class="icon">💰</span><span class="label">Wallet</span></a
+          >
+        </li>
+        <li>
+          <a href="milestone-reviews.html" class="nav-link"
+            ><span class="icon">🎯</span
+            ><span class="label">Milestone Reviews</span></a
+          >
+        </li>
+        <li>
+          <a href="preview-submissions.html" class="nav-link"
+            ><span class="icon">👁️</span><span class="label">Previews</span></a
+          >
+        </li>
+        <li>
+          <a href="notifications.html" class="nav-link"
+            ><span class="icon">🔔</span
+            ><span class="label">Notifications</span></a
+          >
+        </li>
+        <li>
+          <a href="settings.html" class="nav-link active"
+            ><span class="icon">⚙️</span><span class="label">Settings</span></a
+          >
+        </li>
+        <li class="nav-footer">
+          <a href="login.html" class="nav-link logout"
+            ><span class="icon">🚪</span><span class="label">Logout</span></a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <!-- ┌------------- MAIN CONTENT WRAPPER -------------┐ -->
+    <div class="main-wrapper" id="mainWrapper">
+      <header class="top-header">
+        <button
+          class="mobile-menu-btn"
+          id="mobileMenuBtn"
+          aria-label="Toggle menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="header-content">
+          <h1>Settings</h1>
+        </div>
+      </header>
+
+      <div class="dashboard-container">
+        <div class="settings-container">
+          <div class="settings-card">
+            <h1>Account Settings</h1>
+            <p>Manage your profile information and preferences</p>
+
+            <form id="clientSettingsForm" class="settings-form">
+              <!-- Profile Picture -->
+              <div class="form-group">
+                <label for="profile_picture">Profile Picture</label>
+                <div class="profile-pic-preview">
+                  <img
+                    id="profilePreview"
+                    src="../assets/images/default-avatar.png"
+                    alt="Profile Picture"
+                  />
+                </div>
+                <input
+                  type="file"
+                  id="profile_picture"
+                  name="profile_picture"
+                  class="form-file"
+                  accept=".jpg,.jpeg,.png"
+                />
+              </div>
+
+              <!-- Full Name -->
+              <div class="form-group">
+                <label for="full_name">Full Name</label>
+                <input
+                  type="text"
+                  id="full_name"
+                  name="full_name"
+                  class="form-input"
+                  placeholder="Enter your full name"
+                  required
+                />
+              </div>
+
+              <!-- Business Name -->
+              <div class="form-group">
+                <label for="business_name">Business Name (Optional)</label>
+                <input
+                  type="text"
+                  id="business_name"
+                  name="business_name"
+                  class="form-input"
+                  placeholder="Enter your business name"
+                />
+              </div>
+
+              <!-- Email (read-only) -->
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="form-input"
+                  readonly
+                />
+                <small>Email cannot be changed</small>
+              </div>
+
+              <!-- Account Number (read-only) -->
+              <div class="form-group">
+                <label for="account_number">Account Number</label>
+                <input
+                  type="text"
+                  id="account_number"
+                  name="account_number"
+                  class="form-input"
+                  readonly
+                />
+                <small>Your unique TN account number</small>
+              </div>
+
+              <!-- Language -->
+              <div class="form-group">
+                <label for="language">Preferred Language</label>
+                <select id="language" name="language" class="form-select">
+                  <option value="English">English</option>
+                  <option value="Arabic">Arabic</option>
+                  <option value="French">French</option>
+                </select>
+              </div>
+
+              <!-- Communication Style -->
+              <div class="form-group">
+                <label for="tone">Communication Style</label>
+                <select id="tone" name="tone" class="form-select">
+                  <option value="professional">Professional</option>
+                  <option value="friendly">Friendly</option>
+                  <option value="direct">Direct</option>
+                  <option value="collaborative">Collaborative</option>
+                </select>
+              </div>
+
+              <!-- ID Verification Section -->
+              <div class="verification-section">
+                <h3>🔐 Identity Verification</h3>
+
+                <div id="verificationStatus" class="verification-status">
+                  <!-- Status will be dynamically loaded -->
+                </div>
+
+                <div class="form-group">
+                  <label for="gov_id">Upload Government ID</label>
+                  <input
+                    type="file"
+                    id="gov_id"
+                    name="gov_id"
+                    class="form-file"
+                    accept=".jpg,.jpeg,.png,.pdf"
+                  />
+                  <small
+                    >Required to post jobs. Upload government ID (individual) or
+                    business license (business)</small
+                  >
+                </div>
+
+                <button id="uploadIdBtn" class="btn btn-primary">
+                  Upload ID
+                </button>
+              </div>
+
+              <!-- Account Type Display -->
+              <div class="form-group">
+                <label>Account Type</label>
+                <div id="accountTypeDisplay" class="account-type-display">
+                  <span class="badge client-badge">👑 Client Account</span>
+                </div>
+              </div>
+
+              <!-- Save Button -->
+              <button type="submit" class="save-btn">Save Changes</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Mobile menu functionality
+      document.addEventListener("DOMContentLoaded", function () {
+        const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+        const sidebar = document.getElementById("sidebar");
+        const mainWrapper = document.getElementById("mainWrapper");
+
+        if (mobileMenuBtn && sidebar) {
+          mobileMenuBtn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            sidebar.classList.toggle("mobile-open");
+            mainWrapper.classList.toggle("menu-open");
+            mobileMenuBtn.classList.toggle("active");
+          });
+
+          mainWrapper.addEventListener("click", function (e) {
+            if (
+              e.target === mainWrapper &&
+              mainWrapper.classList.contains("menu-open")
+            ) {
+              sidebar.classList.remove("mobile-open");
+              mainWrapper.classList.remove("menu-open");
+              mobileMenuBtn.classList.remove("active");
+            }
+          });
+
+          document.querySelectorAll(".nav-link").forEach((link) => {
+            link.addEventListener("click", () => {
+              sidebar.classList.remove("mobile-open");
+              mainWrapper.classList.remove("menu-open");
+              mobileMenuBtn.classList.remove("active");
+            });
+          });
+        }
+      });
+
+      // Theme Toggle Functionality
+      function initThemeToggle() {
+        const themeToggle = document.getElementById("themeToggle");
+        const themeIcon = themeToggle.querySelector(".theme-icon");
+        const themeLabel = themeToggle.querySelector(".theme-label");
+
+        const savedTheme = localStorage.getItem("client-theme");
+        const prefersLight = window.matchMedia(
+          "(prefers-color-scheme: light)"
+        ).matches;
+
+        if (savedTheme === "light" || (!savedTheme && prefersLight)) {
+          document.documentElement.setAttribute("data-theme", "light");
+          themeIcon.textContent = "🌙";
+          themeLabel.textContent = "Dark Mode";
+        } else {
+          document.documentElement.setAttribute("data-theme", "dark");
+          themeIcon.textContent = "☀️";
+          themeLabel.textContent = "Light Mode";
+        }
+
+        themeToggle.addEventListener("click", () => {
+          const currentTheme =
+            document.documentElement.getAttribute("data-theme");
+
+          if (currentTheme === "light") {
+            document.documentElement.setAttribute("data-theme", "dark");
+            themeIcon.textContent = "☀️";
+            themeLabel.textContent = "Light Mode";
+            localStorage.setItem("client-theme", "dark");
+          } else {
+            document.documentElement.setAttribute("data-theme", "light");
+            themeIcon.textContent = "🌙";
+            themeLabel.textContent = "Dark Mode";
+            localStorage.setItem("client-theme", "light");
+          }
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        initThemeToggle();
+      });
+    </script>
+    <script src="../assets/js/client/settings.js" type="module"></script>
+  </body>
+</html>

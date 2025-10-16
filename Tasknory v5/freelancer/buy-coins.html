@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buy TN Coins - Tasknory</title>
+  <link rel="stylesheet" href="../assets/css/client.css" />
+  <!-- <style>
+    .buy-coins-container {
+      max-width: 600px;
+      margin: 3rem auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .buy-coins-container h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #333 !important;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .admin-payment-box {
+      background: #f8f9fc !important;
+      border: 1px solid #ddd !important;
+      padding: 1rem !important;
+      border-radius: 0.75rem !important;
+      margin-top: 1.5rem !important;
+    }
+
+    .admin-payment-box p {
+      margin: 0.25rem 0;
+    }
+
+    .btn {
+      display: inline-block;
+      width: 100%;
+      padding: 0.9rem;
+      text-align: center;
+      background: #0a84ff;
+      color: #fff !important;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background: #006fd6;
+    }
+
+    .success-message {
+      text-align: center;
+      background: #e8fff2;
+      color: #1e7d32;
+      border: 1px solid #bdf0cb;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .hidden { display: none !important; }
+  </style> -->
+</head>
+
+<body>
+  <div class="buy-coins-container">
+    <h2>Buy TN Coins (1 TN = $1)</h2>
+
+    <!-- Step 1 -->
+    <div id="step1">
+      <div class="form-group">
+        <label for="coinAmount">Amount (in TN)</label>
+        <input type="number" id="coinAmount" placeholder="Enter amount (TN)" />
+      </div>
+
+      <div class="form-group">
+        <label for="paymentMethod">Select Payment Method</label>
+        <select id="paymentMethod">
+          <option value="">Select...</option>
+          <option value="bank">Bank Transfer</option>
+          <option value="wallet">Crypto Wallet (USDT)</option>
+        </select>
+      </div>
+
+      <button id="continueBtn" class="btn">Continue</button>
+    </div>
+
+    <!-- Step 2 -->
+    <div id="step2" class="hidden">
+      <div class="admin-payment-box" id="adminDetails"></div>
+
+      <div class="form-group">
+        <label for="proofUpload">Upload Proof of Payment</label>
+        <input type="file" id="proofUpload" accept="image/*,application/pdf" />
+      </div>
+
+      <button id="confirmPaymentBtn" class="btn">I have made payment</button>
+    </div>
+
+    <!-- Step 3 -->
+    <div id="successMsg" class="success-message hidden">
+      ✅ Payment proof submitted successfully! Please wait for admin confirmation.
+    </div>
+  </div>
+
+  <script type="module">
+    import { supabase } from "../../supabase/config.js";
+
+    const amountInput = document.getElementById("coinAmount");
+    const paymentMethodSelect = document.getElementById("paymentMethod");
+    const continueBtn = document.getElementById("continueBtn");
+    const step1 = document.getElementById("step1");
+    const step2 = document.getElementById("step2");
+    const adminDetailsBox = document.getElementById("adminDetails");
+    const proofUpload = document.getElementById("proofUpload");
+    const confirmBtn = document.getElementById("confirmPaymentBtn");
+    const successMsg = document.getElementById("successMsg");
+
+    // ✅ Pre-fill amount if redirected from hire
+    const params = new URLSearchParams(window.location.search);
+    const presetAmount = params.get("amount");
+    if (presetAmount) {
+      amountInput.value = presetAmount;
+      amountInput.disabled = true;
+    }
+
+    continueBtn.addEventListener("click", () => {
+      const amount = amountInput.value.trim();
+      const method = paymentMethodSelect.value;
+
+      if (!amount || isNaN(amount) || amount <= 0) {
+        alert("Please enter a valid amount.");
+        return;
+      }
+
+      if (!method) {
+        alert("Please select a payment method.");
+        return;
+      }
+
+      step1.classList.add("hidden");
+      step2.classList.remove("hidden");
+
+      if (method === "bank") {
+        adminDetailsBox.innerHTML = `
+          <p><strong>Bank Name:</strong> Zenith Bank</p>
+          <p><strong>Account Name:</strong> Tasknory Global</p>
+          <p><strong>Account Number:</strong> 1234567890</p>
+          <p><strong>Amount to Pay:</strong> ${amount} TN ($${amount})</p>
+        `;
+      } else if (method === "wallet") {
+        adminDetailsBox.innerHTML = `
+          <p><strong>Network:</strong> TRC20</p>
+          <p><strong>Wallet Address:</strong> TN12abcx987tasknory999</p>
+          <p><strong>Amount to Pay:</strong> ${amount} TN (≈ $${amount})</p>
+        `;
+      }
+    });
+
+    confirmBtn.addEventListener("click", async () => {
+      const file = proofUpload.files[0];
+      if (!file) {
+        alert("Please upload a proof of payment.");
+        return;
+      }
+
+      const { data: { user }, error: userErr } = await supabase.auth.getUser();
+      if (userErr || !user) {
+        alert("You must be logged in.");
+        return;
+      }
+
+      const filePath = `proofs/${user.id}/${Date.now()}_${file.name}`;
+      const { data: uploadData, error: uploadErr } = await supabase.storage
+        .from("proofs")
+        .upload(filePath, file);
+
+      if (uploadErr) {
+        alert("Failed to upload proof.");
+        console.error(uploadErr);
+        return;
+      }
+
+      const { data: urlData } = supabase.storage.from("proofs").getPublicUrl(filePath);
+      const proofUrl = urlData.publicUrl;
+
+      const { error: insertErr } = await supabase.from("coin_purchases").insert({
+        user_id: user.id,
+        amount: amountInput.value,
+        payment_method: paymentMethodSelect.value,
+        proof_url: proofUrl,
+        status: "pending"
+      });
+
+      if (insertErr) {
+        alert("Error submitting payment proof.");
+        console.error(insertErr);
+        return;
+      }
+
+      step2.classList.add("hidden");
+      successMsg.classList.remove("hidden");
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Coin Approvals - Tasknory</title>
+  <link rel="stylesheet" href="../assets/css/admin.css" />
+  <style>
+    body {
+      background: #f9fafc;
+      font-family: "Poppins", sans-serif;
+      color: #222;
+    }
+
+    .admin-container {
+      max-width: 1000px;
+      margin: 3rem auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    .admin-container h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 1.6rem;
+      color: #333;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 0.9rem;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background: #f0f4f9;
+      font-weight: 600;
+    }
+
+    tr:hover {
+      background: #f9fbff;
+    }
+
+    img.proof {
+      width: 90px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+    }
+
+    .btn {
+      padding: 0.6rem 1rem;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .btn-approve {
+      background: #2ecc71;
+      color: #fff !important;
+    }
+
+    .btn-reject {
+      background: #e74c3c;
+      color: #fff !important;
+    }
+
+    .status {
+      padding: 0.3rem 0.8rem;
+      border-radius: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .status.pending {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .status.approved {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .status.rejected {
+      background: #f8d7da;
+      color: #721c24;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="admin-container">
+    <h2>🪙 Pending Coin Purchases</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Amount (TN)</th>
+          <th>Method</th>
+          <th>Proof</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="purchaseTable">
+        <tr><td colspan="6">Loading pending purchases...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script type="module">
+    import { supabase } from "../../supabase/config.js";
+
+    const purchaseTable = document.getElementById("purchaseTable");
+
+    async function loadPurchases() {
+      const { data, error } = await supabase
+        .from("coin_purchases")
+        .select(`
+          id,
+          user_id,
+          amount,
+          payment_method,
+          proof_url,
+          status,
+          users(full_name)
+        `)
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        purchaseTable.innerHTML = `<tr><td colspan="6">Error loading purchases.</td></tr>`;
+        console.error(error);
+        return;
+      }
+
+      if (!data || data.length === 0) {
+        purchaseTable.innerHTML = `<tr><td colspan="6">No purchases found.</td></tr>`;
+        return;
+      }
+
+      renderPurchases(data);
+    }
+
+    function renderPurchases(purchases) {
+      purchaseTable.innerHTML = "";
+
+      purchases.forEach((purchase) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${purchase.users?.full_name || "Unknown"}</td>
+          <td>${purchase.amount} TN</td>
+          <td>${purchase.payment_method}</td>
+          <td>
+            <a href="${purchase.proof_url}" target="_blank">
+              <img src="${purchase.proof_url}" class="proof" />
+            </a>
+          </td>
+          <td><span class="status ${purchase.status}">${purchase.status}</span></td>
+          <td>
+            ${
+              purchase.status === "pending"
+                ? `
+                <button class="btn btn-approve" data-id="${purchase.id}" data-uid="${purchase.user_id}" data-amt="${purchase.amount}">Approve</button>
+                <button class="btn btn-reject" data-id="${purchase.id}">Reject</button>
+                `
+                : "-"
+            }
+          </td>
+        `;
+        purchaseTable.appendChild(row);
+      });
+
+      attachActions();
+    }
+
+    function attachActions() {
+      document.querySelectorAll(".btn-approve").forEach((btn) =>
+        btn.addEventListener("click", async (e) => {
+          const id = e.target.dataset.id;
+          const uid = e.target.dataset.uid;
+          const amt = parseFloat(e.target.dataset.amt);
+
+          if (!confirm("Approve this payment and credit coins?")) return;
+
+          // ✅ Update user's coin balance
+          const { data: userData, error: userErr } = await supabase
+            .from("users")
+            .select("coin_balance")
+            .eq("id", uid)
+            .single();
+
+          if (userErr || !userData) {
+            alert("Failed to fetch user balance.");
+            console.error(userErr);
+            return;
+          }
+
+          const newBalance = (userData.coin_balance || 0) + amt;
+
+          const { error: balanceErr } = await supabase
+            .from("users")
+            .update({ coin_balance: newBalance })
+            .eq("id", uid);
+
+          if (balanceErr) {
+            alert("Failed to update balance.");
+            console.error(balanceErr);
+            return;
+          }
+
+          // ✅ Mark purchase as approved
+          await supabase.from("coin_purchases").update({ status: "approved" }).eq("id", id);
+
+          alert(`Credited ${amt} TN to user successfully.`);
+          loadPurchases();
+        })
+      );
+
+      document.querySelectorAll(".btn-reject").forEach((btn) =>
+        btn.addEventListener("click", async (e) => {
+          const id = e.target.dataset.id;
+          if (!confirm("Reject this payment?")) return;
+          await supabase.from("coin_purchases").update({ status: "rejected" }).eq("id", id);
+          alert("Payment rejected.");
+          loadPurchases();
+        })
+      );
+    }
+
+    loadPurchases();
+  </script>
+</body>
+</html>

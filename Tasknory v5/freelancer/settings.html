@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Freelancer Settings - Inbit</title>
+    <link rel="stylesheet" href="../assets/css/freelancer.css" />
+    <link rel="stylesheet" href="../assets/css/freelancer/settings.css" />
+    <link
+      rel="stylesheet"
+      href="../assets/css/freelancer/settings-badges.css"
+    />
+  </head>
+  <body>
+    <!-- ┌------------- SIDEBAR NAV -------------┐ -->
+    <nav class="sidebar" id="sidebar">
+      <div class="sidebar-head">
+        <h1 class="logo">Inbit</h1>
+        <!-- Remove the hamburger from sidebar for desktop -->
+      </div>
+
+      <div class="theme-toggle-container">
+        <button
+          id="themeToggle"
+          class="theme-toggle-btn"
+          aria-label="Toggle theme"
+        >
+          <span class="theme-icon">🌙</span>
+          <span class="theme-label">Dark Mode</span>
+        </button>
+      </div>
+
+      <ul class="nav-links">
+        <li>
+          <a href="dashboard.html" class="nav-link"
+            ><span class="icon">📊</span><span class="label">Dashboard</span></a
+          >
+        </li>
+        <li>
+          <a href="skills.html" class="nav-link"
+            ><span class="icon">🛠️</span><span class="label">Skills</span></a
+          >
+        </li>
+        <li>
+          <a href="matches.html" class="nav-link"
+            ><span class="icon">🔍</span
+            ><span class="label">Matched Jobs</span></a
+          >
+        </li>
+        <li>
+          <a href="hires.html" class="nav-link"
+            ><span class="icon">👥</span><span class="label">Projects</span></a
+          >
+        </li>
+        <li>
+          <a href="contract.html" class="nav-link"
+            ><span class="icon">📝</span><span class="label">Contracts</span></a
+          >
+        </li>
+        <li>
+          <a href="fees.html" class="nav-link"
+            ><span class="icon">💰</span><span class="label">Fees</span></a
+          >
+        </li>
+        <li>
+          <a href="final-submissions.html" class="nav-link"
+            ><span class="icon">🚀</span
+            ><span class="label">Final Submissions</span></a
+          >
+        </li>
+        <li>
+          <a href="contract-payment.html" class="nav-link"
+            ><span class="icon">💳</span
+            ><span class="label">Payment Details</span></a
+          >
+        </li>
+        <li>
+          <a href="preview-submissions.html" class="nav-link"
+            ><span class="icon">👁️</span><span class="label">Previews</span></a
+          >
+        </li>
+        <li>
+          <a href="settings.html" class="nav-link active"
+            ><span class="icon">⚙️</span><span class="label">Settings</span></a
+          >
+        </li>
+        <li class="nav-footer">
+          <a href="login.html" class="nav-link logout"
+            ><span class="icon">🚪</span><span class="label">Logout</span></a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <!-- ┌------------- MAIN CONTENT WRAPPER -------------┐ -->
+    <div class="main-wrapper" id="mainWrapper">
+      <!-- ADD THIS MOBILE HEADER -->
+      <header class="top-header">
+        <button
+          class="mobile-menu-btn"
+          id="mobileMenuBtn"
+          aria-label="Toggle menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="header-content">
+          <h1>Settings</h1>
+        </div>
+      </header>
+
+      <div class="dashboard-container">
+        <!-- Your existing content here -->
+        <div class="settings-container">
+          <div class="settings-card">
+            <h1>Account Settings</h1>
+            <p>Manage your profile information and preferences</p>
+
+            <form id="freelancerSettingsForm" class="settings-form">
+              <!-- Profile Picture -->
+              <div class="form-group">
+                <label for="profile_picture">Profile Picture</label>
+                <div class="profile-pic-preview">
+                  <img
+                    id="profilePreview"
+                    src="../assets/images/default-avatar.png"
+                    alt="Profile Picture"
+                  />
+                </div>
+                <input
+                  type="file"
+                  id="profile_picture"
+                  name="profile_picture"
+                  class="form-file"
+                  accept=".jpg,.jpeg,.png"
+                />
+              </div>
+
+              <!-- Full Name -->
+              <div class="form-group">
+                <label for="full_name">Full Name</label>
+                <input
+                  type="text"
+                  id="full_name"
+                  name="full_name"
+                  class="form-input"
+                  placeholder="Enter your full name"
+                  required
+                />
+              </div>
+
+              <!-- Email (read-only) -->
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="form-input"
+                  readonly
+                />
+                <small>Email cannot be changed</small>
+              </div>
+
+              <!-- Account Number (read-only) -->
+              <div class="form-group">
+                <label for="account_number">Account Number</label>
+                <input
+                  type="text"
+                  id="account_number"
+                  name="account_number"
+                  class="form-input"
+                  readonly
+                />
+                <small>Your unique TN account number for transfers</small>
+              </div>
+
+              <!-- Language -->
+              <div class="form-group">
+                <label for="language">Preferred Language</label>
+                <select id="language" name="language" class="form-select">
+                  <option value="English">English</option>
+                  <option value="Arabic">Arabic</option>
+                  <option value="French">French</option>
+                </select>
+              </div>
+
+              <!-- Communication Style -->
+              <div class="form-group">
+                <label for="tone">Communication Style</label>
+                <select id="tone" name="tone" class="form-select">
+                  <option value="professional">Professional</option>
+                  <option value="friendly">Friendly</option>
+                  <option value="direct">Direct</option>
+                  <option value="collaborative">Collaborative</option>
+                </select>
+              </div>
+
+              <!-- ID Verification Section -->
+              <div class="verification-section">
+                <h3>🔐 Identity Verification</h3>
+
+                <div id="verificationStatus" class="verification-status">
+                  <!-- Status will be dynamically loaded -->
+                </div>
+
+                <div class="form-group">
+                  <label for="gov_id">Upload Government ID</label>
+                  <input
+                    type="file"
+                    id="gov_id"
+                    name="gov_id"
+                    class="form-file"
+                    accept=".jpg,.jpeg,.png,.pdf"
+                  />
+                  <small
+                    >Required to start working. Accepted: Passport, Driver's
+                    License, National ID</small
+                  >
+                </div>
+
+                <button id="uploadIdBtn" class="btn btn-primary">
+                  Upload ID
+                </button>
+              </div>
+
+              <!-- Badges -->
+              <div class="form-group">
+                <label>Badges</label>
+                <div id="badgesDisplay" class="badges-display"></div>
+              </div>
+
+              <!-- Save Button -->
+              <button type="submit" class="save-btn">Save Changes</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REPLACE YOUR SCRIPT WITH THIS -->
+    <script>
+      // Mobile menu functionality - SIMPLE FIXED VERSION
+      document.addEventListener("DOMContentLoaded", function () {
+        const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+        const sidebar = document.getElementById("sidebar");
+        const mainWrapper = document.getElementById("mainWrapper");
+
+        console.log("Mobile menu button:", mobileMenuBtn); // Debug log
+        console.log("Sidebar:", sidebar); // Debug log
+
+        if (mobileMenuBtn && sidebar) {
+          mobileMenuBtn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            console.log("Menu button clicked!"); // Debug log
+            sidebar.classList.toggle("mobile-open");
+            mainWrapper.classList.toggle("menu-open");
+            mobileMenuBtn.classList.toggle("active");
+          });
+
+          // Close menu when clicking on overlay
+          mainWrapper.addEventListener("click", function (e) {
+            if (
+              e.target === mainWrapper &&
+              mainWrapper.classList.contains("menu-open")
+            ) {
+              sidebar.classList.remove("mobile-open");
+              mainWrapper.classList.remove("menu-open");
+              mobileMenuBtn.classList.remove("active");
+            }
+          });
+
+          // Close menu when clicking on a link
+          document.querySelectorAll(".nav-link").forEach((link) => {
+            link.addEventListener("click", () => {
+              sidebar.classList.remove("mobile-open");
+              mainWrapper.classList.remove("menu-open");
+              mobileMenuBtn.classList.remove("active");
+            });
+          });
+        } else {
+          console.error("Mobile menu elements not found!");
+        }
+      });
+
+      // Theme Toggle Functionality
+      function initThemeToggle() {
+        const themeToggle = document.getElementById("themeToggle");
+        const themeIcon = themeToggle.querySelector(".theme-icon");
+        const themeLabel = themeToggle.querySelector(".theme-label");
+
+        // Check for saved theme or prefer-color-scheme
+        const savedTheme = localStorage.getItem("theme");
+        const prefersLight = window.matchMedia(
+          "(prefers-color-scheme: light)"
+        ).matches;
+
+        if (savedTheme === "light" || (!savedTheme && prefersLight)) {
+          document.documentElement.setAttribute("data-theme", "light");
+          themeIcon.textContent = "🌙";
+          themeLabel.textContent = "Dark Mode";
+        } else {
+          document.documentElement.setAttribute("data-theme", "dark");
+          themeIcon.textContent = "☀️";
+          themeLabel.textContent = "Light Mode";
+        }
+
+        themeToggle.addEventListener("click", () => {
+          const currentTheme =
+            document.documentElement.getAttribute("data-theme");
+
+          if (currentTheme === "light") {
+            document.documentElement.setAttribute("data-theme", "dark");
+            themeIcon.textContent = "☀️";
+            themeLabel.textContent = "Light Mode";
+            localStorage.setItem("theme", "dark");
+          } else {
+            document.documentElement.setAttribute("data-theme", "light");
+            themeIcon.textContent = "🌙";
+            themeLabel.textContent = "Dark Mode";
+            localStorage.setItem("theme", "light");
+          }
+        });
+      }
+
+      // Initialize theme toggle when DOM loads
+      document.addEventListener("DOMContentLoaded", () => {
+        initThemeToggle();
+      });
+    </script>
+    <script src="../assets/js/freelancer/settings.js" type="module"></script>
+  </body>
+</html>
